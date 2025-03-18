@@ -16,9 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="min-h-screen max-w-screen overflow-y-visible">
+      <body className="min-h-screen max-w-screen flex flex-col h-screen">
         <Navbar />
-        <div className="container mx-auto mt-5">{children}</div>
+        <div className="container mx-auto m-5 flex-1 flex">{children}</div>
       </body>
     </html>
   );
