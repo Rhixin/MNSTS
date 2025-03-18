@@ -1,3 +1,3 @@
 export default function Event() {
-  return <div>Events</div>;
+  return <div className="bg-amber-400">Events</div>;
 }

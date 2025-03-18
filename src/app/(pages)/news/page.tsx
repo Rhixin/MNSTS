@@ -16,42 +16,47 @@ export default function News() {
           image_path="images/school_image.png"
         ></HighlightNews>
       </div>
-      <div className="flex-1 p-4 overflow-y-auto">
-        <PreviewNews
-          title="Robotocs Champion"
-          date="March 2, 2024"
-          image_path="images/school_image.png"
-        />
-        <PreviewNews
-          title="Robotocs Champion"
-          date="March 2, 2024"
-          image_path="images/school_image.png"
-        />
-        <PreviewNews
-          title="Robotocs Champion"
-          date="March 2, 2024"
-          image_path="images/school_image.png"
-        />
-        <PreviewNews
-          title="Robotocs Champion"
-          date="March 2, 2024"
-          image_path="images/school_image.png"
-        />
-        <PreviewNews
-          title="Robotocs Champion"
-          date="March 2, 2024"
-          image_path="images/school_image.png"
-        />
-        <PreviewNews
-          title="Robotocs Champion"
-          date="March 2, 2024"
-          image_path="images/school_image.png"
-        />
-        <PreviewNews
-          title="Robotocs Champion"
-          date="March 2, 2024"
-          image_path="images/school_image.png"
-        />
+      <div className="relative flex-1 overflow-y-auto">
+        <div className="">
+          <PreviewNews
+            title="Robotics Champion"
+            date="March 2, 2024"
+            image_path="images/school_image.png"
+          />
+          <PreviewNews
+            title="Robotics Champion"
+            date="March 2, 2024"
+            image_path="images/school_image.png"
+          />
+          <PreviewNews
+            title="Robotics Champion"
+            date="March 2, 2024"
+            image_path="images/school_image.png"
+          />
+          <PreviewNews
+            title="Robotics Champion"
+            date="March 2, 2024"
+            image_path="images/school_image.png"
+          />
+          <PreviewNews
+            title="Robotics Champion"
+            date="March 2, 2024"
+            image_path="images/school_image.png"
+          />
+          <PreviewNews
+            title="Robotics Champion"
+            date="March 2, 2024"
+            image_path="images/school_image.png"
+          />
+          <PreviewNews
+            title="Robotics Champion"
+            date="March 2, 2024"
+            image_path="images/school_image.png"
+          />
+        </div>
+
+        {/* Bottom Fade Effect */}
+        <div className="sticky bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
       </div>
     </div>
   );

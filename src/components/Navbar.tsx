@@ -22,7 +22,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="sticky top-0 mx-auto container">
+    <div className="sticky top-0 mx-auto container z-10">
       <div className="py-4 flex items-center justify-between">
         {/* Logo and Title */}
         <div className="flex items-center">
@@ -44,7 +44,7 @@ export default function Navbar() {
           <input
             type="text"
             placeholder="Search..."
-            className="w-64 px-4 py-2 rounded-2xl bg-gray-200 text-black focus:outline-none focus:ring-2 focus:ring-[rgb(9,116,68)]"
+            className="w-64 px-4 py-2 rounded-2xl bg-white text-black focus:outline-none focus:ring-2 focus:ring-[rgb(9,116,68)]"
           />
           <button className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white">
             <Search size={16} className="text-gray-500 mr-4" />
@@ -52,7 +52,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div className="bg-gray-200 rounded-4xl flex relative w-full">
+      <div className="bg-white rounded-4xl flex relative w-full">
         <ul className="flex w-full justify-between relative">
           {/* Moving Background Indicator */}
           <div

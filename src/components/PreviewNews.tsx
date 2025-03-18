@@ -8,7 +8,7 @@ export default function PreviewNews({
   image_path: string;
 }) {
   return (
-    <div className="flex">
+    <div className="flex my-4">
       <div className="relative w-[180px] h-[140px] flex justify-center items-center overflow-hidden">
         {/* Blurred Background Image */}
         <div

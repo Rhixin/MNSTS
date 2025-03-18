@@ -27,7 +27,7 @@ export default function HighlightNews({
 
       <h2 className="text-2xl font-bold mt-4">{title}</h2>
       <h4 className="text-lg text-gray-600">{date}</h4>
-      <p className="text-lg">{description}</p>
+      <p className="text-lg text-justify">{description}</p>
     </>
   );
 }
