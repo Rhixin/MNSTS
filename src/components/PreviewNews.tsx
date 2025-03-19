@@ -8,23 +8,18 @@ export default function PreviewNews({
   image_path: string;
 }) {
   return (
-    <div className="flex my-4">
-      <div className="relative w-[180px] h-[140px] flex justify-center items-center overflow-hidden">
-        {/* Blurred Background Image */}
-        <div
-          className="absolute inset-0 bg-center bg-cover blur-xl"
-          style={{ backgroundImage: `url(${image_path})` }}
-        />
-
-        {/* Sharp Foreground Image */}
+    <div className="flex p-3 border-b border-gray-100 hover:bg-gray-50">
+      <div className="relative w-16 h-16 flex-shrink-0 rounded-md overflow-hidden">
+        {/* Image with proper sizing */}
         <img
-          src="images/school_image.png"
-          className="relative max-w-full max-h-full object-contain"
+          src={image_path}
+          alt={title}
+          className="w-full h-full object-cover"
         />
       </div>
-      <div className="items-center px-4">
-        <h2 className="text-m font-bold mt-4">{title}</h2>
-        <h4 className="text-xs text-gray-600">{date}</h4>
+      <div className="ml-3 flex flex-col justify-center">
+        <h3 className="text-sm font-medium text-gray-900">{title}</h3>
+        <p className="text-xs text-gray-500">{date}</p>
       </div>
     </div>
   );
