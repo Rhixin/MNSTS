@@ -1,6 +1,6 @@
 export default function Login() {
   return (
-    <div className="flex justify-center items-center w-full min-h-screen">
+    <div className="flex justify-center items-center w-full min-h-screen text-black">
       <div className="max-w-[1000px] m-12 min-h-[500px] container rounded-4xl flex flex-row">
         {/* LEFT CONTAINER */}
         <div className="flex-1 flex justify-center items-center rounded-l-2xl bg-gradient-to-b from-[rgb(9,116,68)] to-[rgb(13,222,128)] shadow-2xl">
