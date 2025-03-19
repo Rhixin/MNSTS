@@ -1,6 +1,41 @@
+import Counter from "@/components/Counter";
+
 export default function About() {
   return (
     <>
+      {/*STORY*/}
+
+      <div className="min-h-[650px] bg-transparent w-full mb-60 flex">
+        <div className="flex flex-col flex-2 items-center justify-center  p-4">
+          <span className="bg-white px-12 py-8 rounded-4xl shadow-xl w-[60%]">
+            <p className="text-lg text-justify leading-10">
+              In its early years, when no dedicated building or sufficient rooms
+              were available, classes at the Medellin National Science and
+              Technology School (MNSTS) were conducted at Medellin Central
+              School, where students sat on the floor. Once completed, the new
+              MNSTS building in the New Medellin Estate Subdivision provided a
+              more suitable environment for learning. The school began
+              operations in the 1996-1997 academic year under its founder, Dr.
+              Carolino B. Mordeno. Alongside standard secondary education
+              subjects, students received additional intensive training in
+              challenging disciplines such as Mathematics and Science, with
+              extended instructional hours for each subject.
+            </p>
+          </span>
+        </div>
+      </div>
+
+      {/*FACULTY AND STUDENTS*/}
+
+      <div className="min-h-[650px] bg-transparent w-full mb-60 flex">
+        <div className="flex flex-col flex-2 items-center justify-center  p-4">
+          <span className="bg-white px-12 py-8 rounded-4xl shadow-xl w-[60%] flex justify-evenly h-[70%] items-center">
+            <Counter end={18} label="Faculty Members" />
+            <Counter end={400} label="Students" />
+          </span>
+        </div>
+      </div>
+
       {/*EXCELLENCE*/}
 
       <div className="min-h-[650px] bg-transparent w-full mb-60 flex">

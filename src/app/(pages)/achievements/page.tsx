@@ -19,14 +19,16 @@ export default function Achievements() {
       category: "Athletics, Recreation, & Wellness",
       achievements: [
         {
-          headline: "Robotics Champion 2025",
-          description: "blah bla blblalbalblabl",
-          image_path: "images/school_image.png",
+          headline: "National Basketball Championship Winners",
+          description:
+            "The school’s basketball team secured the championship title in the National Collegiate League, showcasing outstanding teamwork and skill.",
+          image_path: "images/basketball_team.png",
         },
         {
-          headline: "Robotics Champion 2024",
-          description: "blah bla blblalbalblabl",
-          image_path: "images/school_image.png",
+          headline: "Track and Field Gold Medalists",
+          description:
+            "Sci-Tech's track and field athletes dominated the inter-school athletics meet, bringing home multiple gold medals in various events.",
+          image_path: "images/track_field.png",
         },
       ],
     },
@@ -34,14 +36,16 @@ export default function Achievements() {
       category: "Robotics",
       achievements: [
         {
-          headline: "Robotics Champion 2025",
-          description: "blah bla blblalbalblabl",
-          image_path: "images/school_image.png",
+          headline: "International Robotics Olympiad Finalists",
+          description:
+            "The Sci-Tech Robotics Team advanced to the finals of the International Robotics Olympiad, competing against top schools worldwide.",
+          image_path: "images/robotics_team.png",
         },
         {
-          headline: "Robotics Champion 2024",
-          description: "blah bla blblalbalblabl",
-          image_path: "images/school_image.png",
+          headline: "Best Innovation Award - Tech Expo 2025",
+          description:
+            "The school's AI-powered robotic assistant won the Best Innovation Award at the annual Tech Expo, recognizing its cutting-edge design and functionality.",
+          image_path: "images/tech_expo.png",
         },
       ],
     },
@@ -49,14 +53,16 @@ export default function Achievements() {
       category: "Journalism",
       achievements: [
         {
-          headline: "Robotics Champion 2025",
-          description: "blah bla blblalbalblabl",
-          image_path: "images/school_image.png",
+          headline: "Best School Publication Award",
+          description:
+            "The Sci-Tech Gazette was recognized as the Best School Publication for its in-depth reporting and student-driven journalism.",
+          image_path: "images/journalism_award.png",
         },
         {
-          headline: "Robotics Champion 2024",
-          description: "blah bla blblalbalblabl",
-          image_path: "images/school_image.png",
+          headline: "Editorial Writing Competition Winner",
+          description:
+            "A senior student won first place in the National Editorial Writing Contest, showcasing exceptional writing and analytical skills.",
+          image_path: "images/editorial_writing.png",
         },
       ],
     },
@@ -70,21 +76,14 @@ export default function Achievements() {
   };
 
   const nextSlide = () => {
-    setIndex(
-      (prev) =>
-        (prev + 1) %
-        options[getCategoryIndex(selectedOption, options)].achievements.length
-    );
+    setIndex((prev) => (prev + 1) % options[categoryIndex].achievements.length);
   };
 
   const prevSlide = () => {
     setIndex(
       (prev) =>
-        (prev -
-          1 +
-          options[getCategoryIndex(selectedOption, options)].achievements
-            .length) %
-        options[getCategoryIndex(selectedOption, options)].achievements.length
+        (prev - 1 + options[categoryIndex].achievements.length) %
+        options[categoryIndex].achievements.length
     );
   };
 
@@ -117,13 +116,51 @@ export default function Achievements() {
         )}
       </div>
 
-      {/* Carousel */}
-      <div className="flex-row flex p-16">
-        <Achievement
-          title={options[categoryIndex].achievements[index].headline}
-          description={options[categoryIndex].achievements[index].description}
-          image_path={options[categoryIndex].achievements[index].image_path}
-        />
+      {/* Carousel Container */}
+      <div className="relative flex items-center justify-center overflow-hidden w-full min-w-[500px] mx-auto mt-8">
+        <div
+          className="flex transition-transform duration-500 w-full"
+          style={{ transform: `translateX(-${index * 100}%)` }}
+        >
+          {options[categoryIndex].achievements.map((achievement, i) => (
+            <div key={i} className="w-full flex-shrink-0 flex">
+              <Achievement
+                title={achievement.headline}
+                description={achievement.description}
+                image_path={achievement.image_path}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Left Button */}
+        <button
+          onClick={prevSlide}
+          className="absolute left-0 bg-gray-800/50 text-white p-3 rounded-full hover:bg-gray-900 transition"
+        >
+          &#10094;
+        </button>
+
+        {/* Right Button */}
+        <button
+          onClick={nextSlide}
+          className="absolute right-0 bg-gray-800/50 text-white p-3 rounded-full hover:bg-gray-900 transition"
+        >
+          &#10095;
+        </button>
+      </div>
+
+      {/* Indicators */}
+      <div className="flex justify-center mt-4">
+        {options[categoryIndex].achievements.map((_, i) => (
+          <button
+            key={i}
+            className={`h-2 w-2 mx-1 rounded-full ${
+              index === i ? "bg-gray-800" : "bg-gray-400"
+            }`}
+            onClick={() => setIndex(i)}
+          />
+        ))}
       </div>
     </div>
   );

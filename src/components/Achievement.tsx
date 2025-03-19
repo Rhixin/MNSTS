@@ -25,7 +25,7 @@ export default function Achievement({
         </div>
       </div>
 
-      <div className="flex-1 flex-col flex">
+      <div className="flex-1 flex-col flex p-8">
         {/* Headliine */}
         <div className="flex items-center my-4">
           <h1 className="text-4xl text-black font-bold">{title}</h1>
