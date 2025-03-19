@@ -5,6 +5,7 @@ import { useState } from "react";
 export default function Achievements() {
   const [isOpen, setIsOpen] = useState(false);
   const [index, setIndex] = useState(0);
+  const [categoryIndex, setCategoryIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(
     "Athletics, Recreation, & Wellness"
   );
@@ -20,21 +21,52 @@ export default function Achievements() {
         {
           headline: "Robotics Champion 2025",
           description: "blah bla blblalbalblabl",
+          image_path: "images/school_image.png",
         },
         {
           headline: "Robotics Champion 2024",
           description: "blah bla blblalbalblabl",
+          image_path: "images/school_image.png",
         },
       ],
     },
-    { category: "Robotics" },
-    { category: "Journalism" },
+    {
+      category: "Robotics",
+      achievements: [
+        {
+          headline: "Robotics Champion 2025",
+          description: "blah bla blblalbalblabl",
+          image_path: "images/school_image.png",
+        },
+        {
+          headline: "Robotics Champion 2024",
+          description: "blah bla blblalbalblabl",
+          image_path: "images/school_image.png",
+        },
+      ],
+    },
+    {
+      category: "Journalism",
+      achievements: [
+        {
+          headline: "Robotics Champion 2025",
+          description: "blah bla blblalbalblabl",
+          image_path: "images/school_image.png",
+        },
+        {
+          headline: "Robotics Champion 2024",
+          description: "blah bla blblalbalblabl",
+          image_path: "images/school_image.png",
+        },
+      ],
+    },
   ];
 
   const handleSelect = (option: string) => {
     setSelectedOption(option);
     setIsOpen(false);
     setIndex(0);
+    setCategoryIndex(getCategoryIndex(option, options));
   };
 
   const nextSlide = () => {
@@ -88,13 +120,9 @@ export default function Achievements() {
       {/* Carousel */}
       <div className="flex-row flex p-16">
         <Achievement
-          title="Robotics Champs 2025"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-          facilisi. Vestibulum nec felis eget sapien auctor dapibus. Integer vel
-          lectus at nulla convallis dictum. Mauris vel risus at enim pharetra
-          consectetur. Donec vitae ligula ut odio tincidunt tempor. Proin non
-          velit ut elit vestibulum pharetra."
-          image_path="images/school_image.png"
+          title={options[categoryIndex].achievements[index].headline}
+          description={options[categoryIndex].achievements[index].description}
+          image_path={options[categoryIndex].achievements[index].image_path}
         />
       </div>
     </div>
