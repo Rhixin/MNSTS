@@ -1,11 +1,12 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Search } from "lucide-react";
+import { Search, Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuItems = [
     "Home",
     "News",
@@ -18,29 +19,42 @@ export default function Navbar() {
 
   const handleNavigation = (index, name) => {
     setActiveIndex(index);
+    setIsMenuOpen(false);
     router.push(`/${name.toLowerCase().replace(/\s+/g, "-")}`);
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   return (
     <div className="sticky top-0 w-full z-10 bg-[#0a4d2e] py-2 px-4 shadow-lg">
-      <div className="py-4 flex items-center justify-between">
+      <div className="py-4 flex flex-col md:flex-row items-center justify-between">
         {/* Logo and Title */}
-        <div className="flex items-center">
-          <img
-            src="images/MNSTS_logo.jpg"
-            className="w-16 h-16 rounded-full border-2 border-white shadow-md"
-            alt="MNSTS Logo"
-          />
-          <h1
-            className="text-3xl ml-4 text-white font-serif font-bold"
-            style={{ fontFamily: "Times New Roman, serif" }}
+        <div className="flex items-center w-full justify-between md:justify-start">
+          <div className="flex items-center">
+            <img
+              src="images/MNSTS_logo.jpg"
+              className="w-12 h-12 md:w-16 md:h-16 rounded-full border-2 border-white shadow-md"
+              alt="MNSTS Logo"
+            />
+            <h1 className="text-xl sm:text-2xl md:text-3xl ml-2 md:ml-4 text-white font-bold">
+              <span className="hidden sm:inline">Medellin National Science and Technology School</span>
+              <span className="sm:hidden">MNSTS</span>
+            </h1>
+          </div>
+          
+          {/* Mobile Menu Button */}
+          <button 
+            className="md:hidden text-white" 
+            onClick={toggleMenu}
           >
-            Medellin National Science and Technology School
-          </h1>
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
 
-        {/* Search Bar */}
-        <div className="relative">
+        {/* Search Bar - Hidden on small screens, visible on medium and up */}
+        <div className="relative mt-4 md:mt-0 hidden md:block">
           <input
             type="text"
             placeholder="Search..."
@@ -52,7 +66,8 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div className="bg-white rounded-full flex relative w-full shadow-inner mt-2">
+      {/* Desktop Navigation */}
+      <div className="hidden md:block bg-white rounded-full relative w-full shadow-inner mt-2">
         <ul className="flex w-full justify-between relative">
           {/* Moving Background Indicator */}
           <div
@@ -66,7 +81,7 @@ export default function Navbar() {
           {menuItems.map((item, index) => (
             <li key={index} className="relative flex-1 text-center z-10">
               <button
-                className={`px-4 py-3 w-full transition-colors duration-300 font-medium ${
+                className={`px-2 py-3 w-full transition-colors duration-300 font-medium ${
                   activeIndex === index
                     ? "text-white font-bold"
                     : "text-[#0a4d2e] hover:text-[#14c278]"
@@ -79,6 +94,42 @@ export default function Navbar() {
           ))}
         </ul>
       </div>
+
+      {/* Mobile Navigation Menu */}
+      {isMenuOpen && (
+        <div className="md:hidden bg-white rounded-lg mt-2 shadow-lg overflow-hidden transition-all duration-300">
+          <ul className="flex flex-col w-full">
+            {menuItems.map((item, index) => (
+              <li key={index} className="relative w-full border-b border-gray-100 last:border-b-0">
+                <button
+                  className={`px-4 py-3 w-full text-left transition-colors duration-300 font-medium ${
+                    activeIndex === index
+                      ? "bg-gradient-to-r from-[#097444] to-[#14c278] text-white font-bold"
+                      : "text-[#0a4d2e] hover:bg-gray-50"
+                  }`}
+                  onClick={() => handleNavigation(index, item)}
+                >
+                  {item}
+                </button>
+              </li>
+            ))}
+            
+            {/* Search Bar in Mobile Menu */}
+            <li className="p-4">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="w-full px-4 py-2 rounded-2xl bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#14c278]"
+                />
+                <button className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                  <Search size={18} className="text-[#0a4d2e]" />
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

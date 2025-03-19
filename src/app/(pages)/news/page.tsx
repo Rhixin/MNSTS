@@ -39,7 +39,7 @@ export default function News() {
 
   if (loading) {
     return (
-      <div className="text-black bg-white flex w-full h-[700px] rounded-xl overflow-hidden shadow-sm justify-center items-center">
+      <div className="text-black bg-white flex w-full min-h-[400px] md:min-h-[500px] lg:min-h-[700px] rounded-xl overflow-hidden shadow-sm justify-center items-center p-4">
         <p>Loading news...</p>
       </div>
     );
@@ -47,16 +47,16 @@ export default function News() {
 
   if (error) {
     return (
-      <div className="text-black bg-white flex w-full h-[700px] rounded-xl overflow-hidden shadow-sm justify-center items-center">
+      <div className="text-black bg-white flex w-full min-h-[400px] md:min-h-[500px] lg:min-h-[700px] rounded-xl overflow-hidden shadow-sm justify-center items-center p-4">
         <p>Error loading news: {error}</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-white flex w-full h-[700px] rounded-xl overflow-hidden shadow-sm">
-      {/* Main featured news - with more space */}
-      <div className="w-2/3 p-6 overflow-hidden flex flex-col">
+    <div className="bg-white flex flex-col lg:flex-row w-full min-h-[400px] md:min-h-[500px] lg:min-h-[700px] rounded-xl overflow-hidden shadow-sm">
+      {/* Main featured news - takes full width on mobile, 2/3 on desktop */}
+      <div className="w-full lg:w-2/3 p-4 md:p-6 overflow-hidden flex flex-col">
         {highlightArticle ? (
           <HighlightNews
             title={highlightArticle.title}
@@ -72,13 +72,14 @@ export default function News() {
               : "images/school_image.png"}
           />
         ) : (
-          <p>No featured news available</p>
+          <p className="text-center p-4">No featured news available</p>
         )}
       </div>
 
-      {/* News list - with equal spacing */}
-      <div className="w-1/3 border-l border-gray-200">
-        <div className="h-full overflow-y-auto">
+      {/* News list - takes full width on mobile, 1/3 on desktop */}
+      <div className="w-full lg:w-1/3 border-t lg:border-t-0 lg:border-l border-gray-200">
+        <h2 className="font-bold text-lg p-4 bg-gray-50 lg:hidden">More News</h2>
+        <div className="max-h-[400px] lg:h-full overflow-y-auto">
           <div className="flex flex-col divide-y divide-gray-200">
             {previewArticles.length > 0 ? (
               previewArticles.map((article) => (
@@ -96,7 +97,7 @@ export default function News() {
                 />
               ))
             ) : (
-              <p className="p-4 text-black">No additional news articles available</p>
+              <p className="p-4 text-black text-center">No additional news articles available</p>
             )}
           </div>
         </div>
