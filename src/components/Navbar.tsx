@@ -32,8 +32,7 @@ export default function Navbar() {
             alt="MNSTS Logo"
           />
           <h1
-            className="text-3xl ml-4 text-white font-serif font-bold"
-            style={{ fontFamily: "Times New Roman, serif" }}
+            className="text-3xl ml-4 text-white font-bold"
           >
             Medellin National Science and Technology School
           </h1>
