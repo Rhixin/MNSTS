@@ -60,7 +60,7 @@ export default function About() {
         <div className="flex flex-1 justify-center items-center">
           <img src="images/about_excellence.png" className=" object-contain" />
         </div>
-      </div>
+      </motion.div>
 
       {/*VISION*/}
 
@@ -70,9 +70,10 @@ export default function About() {
           <img
             src="images/vision.png"
             className="object-contain max-w-[750px] max-h-[500px]"
+            alt="DepEd Vision"
           />
         </div>
-      </div>
+      </motion.div>
 
       {/*MISSION*/}
 
@@ -84,9 +85,10 @@ export default function About() {
           <img
             src="images/mission.png"
             className="object-contain max-w-[750px] max-h-[500px]"
+            alt="DepEd Mission"
           />
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }

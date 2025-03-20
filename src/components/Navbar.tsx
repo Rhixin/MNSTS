@@ -1,11 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Search } from "lucide-react";
+import { Search, Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuItems = [
     "Home",
     "News",
@@ -18,45 +19,59 @@ export default function Navbar() {
 
   const handleNavigation = (index, name) => {
     setActiveIndex(index);
+    setIsMenuOpen(false);
     router.push(`/${name.toLowerCase().replace(/\s+/g, "-")}`);
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <div className="sticky top-0 mx-auto container z-10">
-      <div className="py-4 flex items-center justify-between">
+    <div className="sticky top-0 w-full z-10 bg-[#0a4d2e] py-2 px-4 shadow-lg">
+      <div className="py-4 flex flex-col md:flex-row items-center justify-between">
         {/* Logo and Title */}
-        <div className="flex items-center">
-          <img
-            src="images/MNSTS_logo.jpg"
-            className="w-16 h-16 rounded-full"
-            alt="MNSTS Logo"
-          />
-          <h1
-            className="text-3xl ml-4 text-white font-serif"
-            style={{ fontFamily: "Times New Roman, serif" }}
+        <div className="flex items-center w-full justify-between md:justify-start">
+          <div className="flex items-center">
+            <img
+              src="images/MNSTS_logo.jpg"
+              className="w-12 h-12 md:w-16 md:h-16 rounded-full border-2 border-white shadow-md"
+              alt="MNSTS Logo"
+            />
+            <h1 className="text-xl sm:text-2xl md:text-3xl ml-2 md:ml-4 text-white font-bold">
+              <span className="hidden sm:inline">Medellin National Science and Technology School</span>
+              <span className="sm:hidden">MNSTS</span>
+            </h1>
+          </div>
+          
+          {/* Mobile Menu Button */}
+          <button 
+            className="md:hidden text-white" 
+            onClick={toggleMenu}
           >
-            Medellin National Science and Technology School
-          </h1>
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
 
-        {/* Search Bar */}
-        <div className="relative">
+        {/* Search Bar - Hidden on small screens, visible on medium and up */}
+        <div className="relative mt-4 md:mt-0 hidden md:block">
           <input
             type="text"
             placeholder="Search..."
-            className="w-64 px-4 py-2 rounded-2xl bg-white text-black focus:outline-none focus:ring-2 focus:ring-[rgb(9,116,68)]"
+            className="w-64 px-4 py-2 rounded-2xl bg-white text-black focus:outline-none focus:ring-2 focus:ring-[#14c278]"
           />
-          <button className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white">
-            <Search size={16} className="text-gray-500 mr-4" />
+          <button className="absolute right-3 top-1/2 transform -translate-y-1/2">
+            <Search size={18} className="text-[#0a4d2e]" />
           </button>
         </div>
       </div>
 
-      <div className="bg-white rounded-4xl flex relative w-full">
+      {/* Desktop Navigation */}
+      <div className="hidden md:block bg-white rounded-full relative w-full shadow-inner mt-2">
         <ul className="flex w-full justify-between relative">
           {/* Moving Background Indicator */}
           <div
-            className="absolute bottom-0 h-full bg-gradient-to-b from-[rgb(9,116,68)] to-[rgb(14,175,103)] transition-all duration-300 rounded-full"
+            className="absolute bottom-0 h-full bg-gradient-to-r from-[#097444] to-[#14c278] transition-all duration-300 rounded-full shadow-md"
             style={{
               width: `calc(100% / ${menuItems.length})`,
               left: `calc(${activeIndex} * (100% / ${menuItems.length}))`,
@@ -64,12 +79,12 @@ export default function Navbar() {
           />
 
           {menuItems.map((item, index) => (
-            <li key={index} className="relative flex-1 text-center">
+            <li key={index} className="relative flex-1 text-center z-10">
               <button
-                className={`px-4 py-2 w-full transition-colors duration-300 ${
+                className={`px-2 py-3 w-full transition-colors duration-300 font-medium ${
                   activeIndex === index
                     ? "text-white font-bold"
-                    : "hover:text-[#097444]"
+                    : "text-[#0a4d2e] hover:text-[#14c278]"
                 }`}
                 onClick={() => handleNavigation(index, item)}
               >
@@ -79,6 +94,42 @@ export default function Navbar() {
           ))}
         </ul>
       </div>
+
+      {/* Mobile Navigation Menu */}
+      {isMenuOpen && (
+        <div className="md:hidden bg-white rounded-lg mt-2 shadow-lg overflow-hidden transition-all duration-300">
+          <ul className="flex flex-col w-full">
+            {menuItems.map((item, index) => (
+              <li key={index} className="relative w-full border-b border-gray-100 last:border-b-0">
+                <button
+                  className={`px-4 py-3 w-full text-left transition-colors duration-300 font-medium ${
+                    activeIndex === index
+                      ? "bg-gradient-to-r from-[#097444] to-[#14c278] text-white font-bold"
+                      : "text-[#0a4d2e] hover:bg-gray-50"
+                  }`}
+                  onClick={() => handleNavigation(index, item)}
+                >
+                  {item}
+                </button>
+              </li>
+            ))}
+            
+            {/* Search Bar in Mobile Menu */}
+            <li className="p-4">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="w-full px-4 py-2 rounded-2xl bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#14c278]"
+                />
+                <button className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                  <Search size={18} className="text-[#0a4d2e]" />
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
