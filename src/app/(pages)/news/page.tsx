@@ -97,6 +97,7 @@ export default function News() {
             description={highlightedNews.description}
             date={highlightedNews.date}
             image_path={highlightedNews.image_path}
+            author={""}
           />
         </motion.div>
       </div>

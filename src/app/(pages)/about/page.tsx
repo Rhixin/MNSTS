@@ -1,4 +1,5 @@
 import Counter from "@/components/Counter";
+import { motion } from "framer-motion";
 
 export default function About() {
   return (
@@ -60,7 +61,7 @@ export default function About() {
         <div className="flex flex-1 justify-center items-center">
           <img src="images/about_excellence.png" className=" object-contain" />
         </div>
-      </motion.div>
+      </div>
 
       {/*VISION*/}
 
@@ -73,7 +74,7 @@ export default function About() {
             alt="DepEd Vision"
           />
         </div>
-      </motion.div>
+      </div>
 
       {/*MISSION*/}
 
@@ -88,7 +89,7 @@ export default function About() {
             alt="DepEd Mission"
           />
         </div>
-      </motion.div>
+      </div>
     </>
   );
 }

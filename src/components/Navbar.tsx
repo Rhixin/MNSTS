@@ -29,26 +29,25 @@ export default function Navbar() {
 
   return (
     <div className="sticky top-0 w-full z-10 bg-[#0a4d2e] py-2 px-4 shadow-lg">
-      <div className="py-4 flex flex-col md:flex-row items-center justify-between">
+      <div className="py-2 flex flex-col md:flex-row items-center justify-between">
         {/* Logo and Title */}
         <div className="flex items-center w-full justify-between md:justify-start">
           <div className="flex items-center">
             <img
               src="images/MNSTS_logo.jpg"
-              className="w-12 h-12 md:w-16 md:h-16 rounded-full border-2 border-white shadow-md"
+              className="w-12 h-12 md:w-14 md:h-14 rounded-full border-2 border-white shadow-md"
               alt="MNSTS Logo"
             />
-            <h1 className="text-xl sm:text-2xl md:text-3xl ml-2 md:ml-4 text-white font-bold">
-              <span className="hidden sm:inline">Medellin National Science and Technology School</span>
+            <h1 className="text-xl sm:text-xl md:text-2xl ml-2 md:ml-4 text-white font-bold">
+              <span className="hidden sm:inline">
+                Medellin National Science and Technology School
+              </span>
               <span className="sm:hidden">MNSTS</span>
             </h1>
           </div>
-          
+
           {/* Mobile Menu Button */}
-          <button 
-            className="md:hidden text-white" 
-            onClick={toggleMenu}
-          >
+          <button className="md:hidden text-white" onClick={toggleMenu}>
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
@@ -100,7 +99,10 @@ export default function Navbar() {
         <div className="md:hidden bg-white rounded-lg mt-2 shadow-lg overflow-hidden transition-all duration-300">
           <ul className="flex flex-col w-full">
             {menuItems.map((item, index) => (
-              <li key={index} className="relative w-full border-b border-gray-100 last:border-b-0">
+              <li
+                key={index}
+                className="relative w-full border-b border-gray-100 last:border-b-0"
+              >
                 <button
                   className={`px-4 py-3 w-full text-left transition-colors duration-300 font-medium ${
                     activeIndex === index
@@ -113,7 +115,7 @@ export default function Navbar() {
                 </button>
               </li>
             ))}
-            
+
             {/* Search Bar in Mobile Menu */}
             <li className="p-4">
               <div className="relative">

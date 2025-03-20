@@ -21,15 +21,17 @@ export default function HighlightNews({
         />
       </div>
 
-      <h2 className="text-3xl font-bold mt-6 mb-2 text-gray-800 leading-tight">{title}</h2>
+      <h2 className="text-3xl font-bold mt-6 mb-2 text-gray-800 leading-tight">
+        {title}
+      </h2>
       <div className="flex items-center text-sm text-gray-600 mb-4">
         <span className="font-medium">{date}</span>
         <span className="mx-2 text-gray-400">•</span>
-        <span>By <span className="font-medium">{author}</span></span>
+        <span>
+          By <span className="font-medium">{author}</span>
+        </span>
       </div>
-      <p className="text-base text-gray-700 leading-relaxed">
-        {description}
-      </p>
+      <p className="text-base text-gray-700 leading-relaxed">{description}</p>
     </div>
   );
 }
