@@ -13,7 +13,7 @@ export default function HighlightNews({
 }) {
   return (
     <div className="flex flex-col h-full">
-      <div className="relative w-full h-[500px] flex justify-center items-center overflow-hidden rounded-lg">
+      <div className="relative w-full h-[400px] flex justify-center items-center overflow-hidden rounded-lg">
         <img
           src={image_path}
           className="w-full h-full object-cover"
