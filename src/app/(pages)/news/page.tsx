@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { motion } from "framer-motion";
 import HighlightNews from "@/components/HighlightNews";
 import PreviewNews from "@/components/PreviewNews";
 
@@ -64,31 +65,56 @@ export default function News() {
     setHighlightedNews(news);
   };
 
+  // Animation variants for news previews (stacking effect)
+  const listVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2, // Delay between items
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
   return (
     <div className="bg-white flex w-full max-h-[650px] rounded-xl">
-      {/* Highlighted News */}
+      {/* Highlighted News with Animation */}
       <div className="flex-3 justify-center items-center p-4">
-        <HighlightNews
-          title={highlightedNews.title}
-          description={highlightedNews.description}
-          date={highlightedNews.date}
-          image_path={highlightedNews.image_path}
-        />
+        <motion.div
+          key={highlightedNews.title}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+        >
+          <HighlightNews
+            title={highlightedNews.title}
+            description={highlightedNews.description}
+            date={highlightedNews.date}
+            image_path={highlightedNews.image_path}
+          />
+        </motion.div>
       </div>
 
-      {/* News List */}
+      {/* News List with Stacking Animation */}
       <div className="relative flex-1 overflow-y-auto">
-        <div>
+        <motion.div variants={listVariants} initial="hidden" animate="show">
           {newsData.map((news, index) => (
-            <PreviewNews
-              key={index}
-              title={news.title}
-              date={news.date}
-              image_path={news.image_path}
-              onClick={() => handleNewsClick(news)}
-            />
+            <motion.div key={index} variants={itemVariants}>
+              <PreviewNews
+                title={news.title}
+                date={news.date}
+                image_path={news.image_path}
+                onClick={() => handleNewsClick(news)}
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Bottom Fade Effect */}
         <div className="sticky bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>

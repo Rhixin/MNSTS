@@ -1,15 +1,66 @@
 "use client";
+import Club from "@/components/Club";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function Organization() {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("Math");
-  const options = ["Math", "English", "Science", "Step"];
+  const [selectedOption, setSelectedOption] = useState(0);
 
-  const handleSelect = (option: string) => {
+  const handleSelect = (option: number) => {
     setSelectedOption(option);
     setIsOpen(false);
   };
+
+  const options = [
+    {
+      clubName: "Math Club",
+      description:
+        "The Math Club fosters a love for mathematics through problem-solving, competitions, and logic games.",
+      president: "Alice Johnson",
+      adviser: "Dr. Robert Smith",
+      activities:
+        "Math Olympiad, Puzzle Challenges, Weekly Problem Solving Sessions",
+      projects: "School Calculator App, Peer Tutoring Program",
+      image_path: "images/school_image.png",
+      logo_path: "images/school_image.png",
+    },
+    {
+      clubName: "English Club",
+      description:
+        "The English Club enhances students' communication and literary skills through interactive activities.",
+      president: "David Carter",
+      adviser: "Ms. Emily Brown",
+      activities:
+        "Debate Competitions, Poetry Readings, Public Speaking Workshops",
+      projects: "Annual School Magazine, Book Donation Drive",
+      image_path: "images/school_image.png",
+      logo_path: "images/school_image.png",
+    },
+    {
+      clubName: "Science Club",
+      description:
+        "The Science Club promotes curiosity and discovery through hands-on experiments and science fairs.",
+      president: "Sophia Martinez",
+      adviser: "Dr. William Green",
+      activities:
+        "Science Fair, Astronomy Night, Environmental Awareness Campaigns",
+      projects: "Eco-Friendly Campus Initiative, School Hydroponic Garden",
+      image_path: "images/school_image.png",
+      logo_path: "images/school_image.png",
+    },
+    {
+      clubName: "Step Club",
+      description:
+        "The Step Club is dedicated to dance, movement, and rhythm, performing at school events and competitions.",
+      president: "Michael Lee",
+      adviser: "Mr. Daniel White",
+      activities: "Hip-Hop Dance Battles, Choreography Sessions, Talent Shows",
+      projects: "School Dance Showcase, Community Dance Outreach",
+      image_path: "images/school_image.png",
+      logo_path: "images/school_image.png",
+    },
+  ];
 
   return (
     <div className="bg-white flex w-full min-h-[650px] rounded-xl p-4 flex-col">
@@ -19,7 +70,7 @@ export default function Organization() {
           onClick={() => setIsOpen(!isOpen)}
           className="px-4 py-2 bg-gradient-to-b from-[rgb(9,116,68)] to-[rgb(14,175,103)] text-white rounded-md shadow-md transition"
         >
-          Select Organization: {selectedOption}
+          Select Organization: {options[selectedOption].clubName}
         </button>
 
         {/* Dropdown Menu */}
@@ -29,10 +80,10 @@ export default function Organization() {
               {options.map((option, index) => (
                 <li
                   key={index}
-                  onClick={() => handleSelect(option)}
+                  onClick={() => handleSelect(index)}
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                 >
-                  {option}
+                  {option.clubName}
                 </li>
               ))}
             </ul>
@@ -41,56 +92,23 @@ export default function Organization() {
       </div>
 
       <div className="flex-row flex">
-        <div className="flex-1 flex-col">
-          <div className="relative w-[720px] h-[540px] flex justify-center items-center overflow-hidden my-4">
-            {/* Blurred Background Image */}
-            <div
-              className="absolute inset-0 bg-center bg-cover blur-xl"
-              style={{ backgroundImage: `url(images/school_image.png)` }}
-            />
-
-            {/* Sharp Foreground Image */}
-            <img
-              src="images/school_image.png"
-              className="relative max-w-full max-h-full object-contain"
-            />
-          </div>
-        </div>
-
-        <div className="flex-1 flex-col flex">
-          {/* Logo and Club Name */}
-          <div className="flex items-center my-4">
-            <img
-              src="images/MNSTS_logo.jpg"
-              className="w-16 h-16 rounded-full"
-              alt="MNSTS Logo"
-            />
-            <h1 className="text-4xl ml-4 text-black font-bold">
-              {selectedOption}
-            </h1>
-          </div>
-
-          {/* Club Information */}
-          <div>
-            <p className="text-justify">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-              facilisi. Vestibulum nec felis eget sapien auctor dapibus. Integer
-              vel lectus at nulla convallis dictum. Mauris vel risus at enim
-              pharetra consectetur. Donec vitae ligula ut odio tincidunt tempor.
-              Proin non velit ut elit vestibulum pharetra.
-            </p>
-          </div>
-
-          <div className="flex flex-col flex-1 justify-around">
-            <p className="text-justify">President:</p>
-
-            <p className="text-justify">Adviser:</p>
-
-            <p className="text-justify">Activities:</p>
-
-            <p className="text-justify">Project Implemented:</p>
-          </div>
-        </div>
+        <motion.div
+          key={selectedOption} // Triggers animation on change
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Club
+            clubName={options[selectedOption].clubName}
+            description={options[selectedOption].description}
+            president={options[selectedOption].president}
+            adviser={options[selectedOption].adviser}
+            activities={options[selectedOption].activities}
+            projects={options[selectedOption].projects}
+            image_path={options[selectedOption].image_path}
+            logo_path={options[selectedOption].logo_path}
+          />
+        </motion.div>
       </div>
     </div>
   );
