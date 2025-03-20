@@ -23,11 +23,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={figtree.variable}>
-      <body
-        className={`${figtree.className} min-h-screen max-w-screen flex flex-col`}
-      >
-        <Navbar />
-        <div className="container mx-auto m-5 flex-1 flex-col">{children}</div>
+      <body className={`${figtree.className} min-h-screen max-w-screen`}>
+        <div className="container mx-auto flex-1 flex-col">{children}</div>
       </body>
     </html>
   );

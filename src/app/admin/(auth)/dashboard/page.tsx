@@ -10,7 +10,7 @@ export default function Dashboard() {
   const sections = ["News", "Announcements", "Organizations", "Achievements"];
 
   return (
-    <div className="flex max-h-[650px] bg-gray-100 rounded-2xl">
+    <div className="flex max-h-[780px] min-h-[780px] bg-gray-100 rounded-2xl">
       {/* Left Sidebar Menu */}
       <div className="w-64 bg-white shadow-lg p-4 rounded-l-2xl">
         <h2 className="text-lg font-bold mb-4">Dashboard</h2>

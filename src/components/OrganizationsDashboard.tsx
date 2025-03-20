@@ -60,6 +60,8 @@ export default function OrganizationsDashboard() {
       return;
     }
 
+    console.log(newOrganization);
+
     try {
       const res = await fetch("http://localhost:3000/api/organizations/add", {
         method: "POST",
@@ -208,9 +210,7 @@ export default function OrganizationsDashboard() {
               onChange={(e) =>
                 setNewOrganization({
                   ...newOrganization,
-                  activities: e.target.value
-                    .split(",")
-                    .map((act) => act.trim()),
+                  activities: e.target.value,
                 })
               }
             />
@@ -222,9 +222,7 @@ export default function OrganizationsDashboard() {
               onChange={(e) =>
                 setNewOrganization({
                   ...newOrganization,
-                  projects: e.target.value
-                    .split(",")
-                    .map((proj) => proj.trim()),
+                  projects: e.target.value,
                 })
               }
             />

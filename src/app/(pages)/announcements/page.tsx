@@ -1,30 +1,33 @@
 "use client";
 import { motion } from "framer-motion";
 import Announcement from "@/components/Announcement";
+import { useEffect, useState } from "react";
 
 export default function Announcements() {
-  const announcements = [
-    {
-      headline: "School Year 2025-2026 Enrollment Now Open!",
-      date: "March 20, 2025",
-    },
-    {
-      headline: "Campus Maintenance Scheduled for April 5-10",
-      date: "March 18, 2025",
-    },
-    {
-      headline: "Sci-Tech Career Fair - Explore Opportunities",
-      date: "March 15, 2025",
-    },
-    {
-      headline: "Midterm Exams Scheduled for Next Month",
-      date: "March 10, 2025",
-    },
-    {
-      headline: "Library Now Open 24/7 for Exam Period",
-      date: "March 5, 2025",
-    },
-  ];
+  const [announcements, setAnnouncements] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch news from API
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/announcements");
+        const data = await response.json();
+
+        if (data.success) {
+          setAnnouncements(data.data);
+        } else {
+          console.error("Failed to fetch news:", data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching news:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNews();
+  }, []);
 
   // Variants for stacking animation
   const containerVariants = {
@@ -42,6 +45,9 @@ export default function Announcements() {
     show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
+  if (loading) return <p>Loading announcements...</p>;
+  if (!announcements.length) return <p>No announcements available.</p>;
+
   return (
     <motion.div
       className=" min-h-[650px] bg-white w-full p-6 rounded-xl overflow-auto"
@@ -52,8 +58,8 @@ export default function Announcements() {
       {announcements.map((announcement, index) => (
         <motion.div key={index} variants={itemVariants}>
           <Announcement
-            headline={announcement.headline}
-            date={announcement.date}
+            headline={announcement.content}
+            date={announcement.createdAt}
           />
         </motion.div>
       ))}
