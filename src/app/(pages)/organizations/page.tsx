@@ -1,89 +1,67 @@
 "use client";
 import Club from "@/components/Club";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 export default function Organization() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(0);
+  const [clubs, setClubs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleSelect = (option: number) => {
-    setSelectedOption(option);
+  // Fetch news from API
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/organizations");
+        const data = await response.json();
+
+        if (data.success) {
+          setClubs(data.data);
+        } else {
+          console.error("Failed to fetch news:", data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching news:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNews();
+  }, []);
+
+  const handleSelect = (index: number) => {
+    setSelectedOption(index);
     setIsOpen(false);
   };
 
-  const options = [
-    {
-      clubName: "Math Club",
-      description:
-        "The Math Club fosters a love for mathematics through problem-solving, competitions, and logic games.",
-      president: "Alice Johnson",
-      adviser: "Dr. Robert Smith",
-      activities:
-        "Math Olympiad, Puzzle Challenges, Weekly Problem Solving Sessions",
-      projects: "School Calculator App, Peer Tutoring Program",
-      image_path: "images/school_image.png",
-      logo_path: "images/school_image.png",
-    },
-    {
-      clubName: "English Club",
-      description:
-        "The English Club enhances students' communication and literary skills through interactive activities.",
-      president: "David Carter",
-      adviser: "Ms. Emily Brown",
-      activities:
-        "Debate Competitions, Poetry Readings, Public Speaking Workshops",
-      projects: "Annual School Magazine, Book Donation Drive",
-      image_path: "images/school_image.png",
-      logo_path: "images/school_image.png",
-    },
-    {
-      clubName: "Science Club",
-      description:
-        "The Science Club promotes curiosity and discovery through hands-on experiments and science fairs.",
-      president: "Sophia Martinez",
-      adviser: "Dr. William Green",
-      activities:
-        "Science Fair, Astronomy Night, Environmental Awareness Campaigns",
-      projects: "Eco-Friendly Campus Initiative, School Hydroponic Garden",
-      image_path: "images/school_image.png",
-      logo_path: "images/school_image.png",
-    },
-    {
-      clubName: "Step Club",
-      description:
-        "The Step Club is dedicated to dance, movement, and rhythm, performing at school events and competitions.",
-      president: "Michael Lee",
-      adviser: "Mr. Daniel White",
-      activities: "Hip-Hop Dance Battles, Choreography Sessions, Talent Shows",
-      projects: "School Dance Showcase, Community Dance Outreach",
-      image_path: "images/school_image.png",
-      logo_path: "images/school_image.png",
-    },
-  ];
+  if (loading) return <p>Loading clubs...</p>;
+  if (!clubs.length) return <p>No clubs available.</p>;
 
   return (
     <div className="bg-white flex w-full min-h-[650px] rounded-xl p-4 flex-col">
+      {/* Dropdown Menu */}
       <div className="relative inline-block text-left">
-        {/* Dropdown Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="px-4 py-2 bg-gradient-to-b from-[rgb(9,116,68)] to-[rgb(14,175,103)] text-white rounded-md shadow-md transition"
         >
-          Select Organization: {options[selectedOption].clubName}
+          {clubs.length > 0
+            ? `Select Organization: ${clubs[selectedOption]?.clubName}`
+            : "Loading..."}
         </button>
 
-        {/* Dropdown Menu */}
-        {isOpen && (
+        {isOpen && clubs.length > 0 && (
           <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-2">
             <ul className="py-2">
-              {options.map((option, index) => (
+              {clubs.map((club, index) => (
                 <li
                   key={index}
                   onClick={() => handleSelect(index)}
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                 >
-                  {option.clubName}
+                  {club.clubName}
                 </li>
               ))}
             </ul>
@@ -91,24 +69,27 @@ export default function Organization() {
         )}
       </div>
 
+      {/* Club Display */}
       <div className="flex-row flex">
-        <motion.div
-          key={selectedOption} // Triggers animation on change
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Club
-            clubName={options[selectedOption].clubName}
-            description={options[selectedOption].description}
-            president={options[selectedOption].president}
-            adviser={options[selectedOption].adviser}
-            activities={options[selectedOption].activities}
-            projects={options[selectedOption].projects}
-            image_path={options[selectedOption].image_path}
-            logo_path={options[selectedOption].logo_path}
-          />
-        </motion.div>
+        {clubs.length > 0 && (
+          <motion.div
+            key={selectedOption} // Triggers animation on change
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Club
+              clubName={clubs[selectedOption]?.clubName}
+              description={clubs[selectedOption]?.description}
+              president={clubs[selectedOption]?.president}
+              adviser={clubs[selectedOption]?.adviser}
+              activities={clubs[selectedOption]?.activities}
+              projects={clubs[selectedOption]?.projects}
+              image_path={clubs[selectedOption]?.image_path}
+              logo_path={clubs[selectedOption]?.logo_path}
+            />
+          </motion.div>
+        )}
       </div>
     </div>
   );

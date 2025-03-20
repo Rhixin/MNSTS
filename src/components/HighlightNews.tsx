@@ -13,6 +13,7 @@ export default function HighlightNews({
 }) {
   return (
     <div className="flex flex-col h-full">
+      {/* Image Container */}
       <div className="relative w-full h-[400px] flex justify-center items-center overflow-hidden rounded-lg">
         <img
           src={image_path}
@@ -21,9 +22,12 @@ export default function HighlightNews({
         />
       </div>
 
+      {/* Title */}
       <h2 className="text-3xl font-bold mt-6 mb-2 text-gray-800 leading-tight">
         {title}
       </h2>
+
+      {/* Metadata */}
       <div className="flex items-center text-sm text-gray-600 mb-4">
         <span className="font-medium">{date}</span>
         <span className="mx-2 text-gray-400">•</span>
@@ -31,7 +35,11 @@ export default function HighlightNews({
           By <span className="font-medium">{author}</span>
         </span>
       </div>
-      <p className="text-base text-gray-700 leading-relaxed">{description}</p>
+
+      {/* Description with Scrollable Overflow */}
+      <div className="text-base text-gray-700 leading-relaxed max-h-[100px] overflow-y-auto pr-2 text-justify">
+        {description}
+      </div>
     </div>
   );
 }

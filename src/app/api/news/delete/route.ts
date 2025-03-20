@@ -1,56 +1,59 @@
-import { NextRequest, NextResponse } from 'next/server';
-import connectDB from '@/lib/mongodb';
-import mongoose from 'mongoose';
+import { NextRequest, NextResponse } from "next/server";
+import connectDB from "@/lib/mongodb";
+import mongoose from "mongoose";
 
 // Route handler for query parameter based deletion
 export async function DELETE(req: NextRequest) {
   try {
     // Connect to the database
     await connectDB();
-    
+
     // Get ID from query parameter
     const url = new URL(req.url);
-    const id = url.searchParams.get('id');
-    
+    const id = url.searchParams.get("id");
+
     if (!id) {
       return NextResponse.json(
-        { message: 'News ID is required' },
+        { message: "News ID is required" },
         { status: 400 }
       );
     }
-    
+
     // Validate if the ID is a valid ObjectId
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json(
-        { message: 'Invalid news ID format' },
+        { message: "Invalid news ID format" },
         { status: 400 }
       );
     }
-    
+
     // Assuming you have a News model
-    const News = mongoose.models.News || mongoose.model('News', new mongoose.Schema({}));
-    
+    const News =
+      mongoose.models.News || mongoose.model("News", new mongoose.Schema({}));
+
     // Find and delete the news article
     const deletedNews = await News.findByIdAndDelete(id);
-    
+
     // Check if the news was found and deleted
     if (!deletedNews) {
       return NextResponse.json(
-        { message: 'News article not found' },
+        { message: "News article not found" },
         { status: 404 }
       );
     }
-    
+
     // Return success response
     return NextResponse.json(
-      { message: 'News article deleted successfully' },
+      { message: "News article deleted successfully" },
       { status: 200 }
     );
-    
   } catch (error) {
-    console.error('Error deleting news article:', error);
+    console.error("Error deleting news article:", error);
     return NextResponse.json(
-      { message: 'Failed to delete news article', error: (error as Error).message },
+      {
+        message: "Failed to delete news article",
+        error: (error as Error).message,
+      },
       { status: 500 }
     );
   }

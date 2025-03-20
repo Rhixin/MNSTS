@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
 import mongoose from "mongoose";
 
-// GET handler to fetch all news articles
+// GET handler to fetch all organizations
 export async function GET(req: NextRequest) {
   try {
     // Connect to the database
@@ -14,15 +14,19 @@ export async function GET(req: NextRequest) {
     const page = parseInt(url.searchParams.get("page") || "1");
     const skip = (page - 1) * limit;
 
-    const News =
-      mongoose.models.News ||
+    const Organizations =
+      mongoose.models.Organizations ||
       mongoose.model(
-        "News",
+        "Organizations",
         new mongoose.Schema({
-          title: String,
-          author: String,
-          content: String,
-          images: Array,
+          clubName: String,
+          description: String,
+          president: String,
+          adviser: String,
+          activities: String,
+          projects: String,
+          image_path: String,
+          logo_path: String,
           createdAt: {
             type: Date,
             default: Date.now,
@@ -31,19 +35,19 @@ export async function GET(req: NextRequest) {
       );
 
     // Fetch the total count for pagination info
-    const total = await News.countDocuments();
+    const total = await Organizations.countDocuments();
 
-    // Fetch news articles with pagination
-    const news = await News.find({})
+    // Fetch organizations with pagination
+    const organizations = await Organizations.find({})
       .limit(limit)
       .skip(skip)
       .sort({ createdAt: -1 }); // Most recent first
 
-    // Return the news articles with pagination metadata
+    // Return the organizations with pagination metadata
     return NextResponse.json(
       {
         success: true,
-        data: news,
+        data: organizations,
         pagination: {
           total,
           page,
@@ -54,11 +58,11 @@ export async function GET(req: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error fetching news articles:", error);
+    console.error("Error fetching organizations:", error);
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to fetch news articles",
+        message: "Failed to fetch organizations",
         error: (error as Error).message,
       },
       { status: 500 }
