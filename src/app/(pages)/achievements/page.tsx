@@ -17,7 +17,7 @@ export default function Achievements() {
 
   async function fetchData() {
     try {
-      const res = await fetch("http://localhost:3000/api/achievements");
+      const res = await fetch("/api/achievements");
       const data = await res.json();
       if (data.success) {
         organizeData(data.data);

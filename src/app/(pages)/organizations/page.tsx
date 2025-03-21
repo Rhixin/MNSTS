@@ -13,7 +13,7 @@ export default function Organization() {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/organizations");
+        const response = await fetch("/api/organizations");
         const data = await response.json();
 
         if (data.success) {

@@ -13,7 +13,7 @@ export default function Event() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/events");
+        const response = await fetch("/api/events");
         const data = await response.json();
 
         if (data.success) {
