@@ -16,12 +16,9 @@ export default function Navbar() {
     "About",
   ];
 
-  // Load index from localStorage or default to 0
   const [activeIndex, setActiveIndex] = useState(() => {
-    if (typeof window !== "undefined") {
-      return parseInt(localStorage.getItem("activeIndex")) || 0;
-    }
-    return 0;
+    // Retrieve saved index or default to 0
+    return parseInt(localStorage.getItem("activeIndex") || "0", 10);
   });
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,15 +28,25 @@ export default function Navbar() {
     const index = menuItems.findIndex(
       (item) => item.toLowerCase() === currentPath
     );
+
     if (index !== -1) {
       setActiveIndex(index);
       localStorage.setItem("activeIndex", index); // Save to localStorage
     }
   }, [pathname]);
 
+  useEffect(() => {
+    // Ensure navbar moves after setting state
+    const storedIndex = parseInt(
+      localStorage.getItem("activeIndex") || "0",
+      10
+    );
+    setActiveIndex(storedIndex);
+  }, []);
+
   const handleNavigation = (index, name) => {
     setActiveIndex(index);
-    localStorage.setItem("activeIndex", index); // Save to localStorage
+    localStorage.setItem("activeIndex", index); // Save new index
     setIsMenuOpen(false);
     router.push(`/${name.toLowerCase().replace(/\s+/g, "-")}`);
   };
