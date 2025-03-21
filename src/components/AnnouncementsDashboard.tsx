@@ -17,7 +17,7 @@ export default function AnnouncementsDashboard() {
 
   const fetchAnnouncements = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/announcements");
+      const response = await fetch("/api/announcements");
       const data = await response.json();
 
       if (data.success) {
@@ -42,7 +42,7 @@ export default function AnnouncementsDashboard() {
 
     try {
       const res = await fetch(
-        `http://localhost:3000/api/announcements/delete?id=${selectedAnnouncementId}`,
+        `/api/announcements/delete?id=${selectedAnnouncementId}`,
         {
           method: "DELETE",
         }
@@ -66,7 +66,7 @@ export default function AnnouncementsDashboard() {
     }
 
     try {
-      const res = await fetch("http://localhost:3000/api/announcements/add", {
+      const res = await fetch("/api/announcements/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content: newContent }),

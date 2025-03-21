@@ -25,7 +25,7 @@ export default function OrganizationsDashboard() {
 
   const fetchOrganizations = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/organizations");
+      const response = await fetch("/api/organizations");
       const data = await response.json();
 
       if (data.success) {
@@ -50,7 +50,7 @@ export default function OrganizationsDashboard() {
 
     try {
       const res = await fetch(
-        `http://localhost:3000/api/organizations/delete?id=${selectedOrganizationId}`,
+        `/api/organizations/delete?id=${selectedOrganizationId}`,
         {
           method: "DELETE",
         }
@@ -75,7 +75,7 @@ export default function OrganizationsDashboard() {
     console.log(newOrganization);
 
     try {
-      const res = await fetch("http://localhost:3000/api/organizations/add", {
+      const res = await fetch("/api/organizations/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newOrganization),

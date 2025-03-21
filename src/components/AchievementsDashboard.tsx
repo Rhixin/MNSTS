@@ -19,7 +19,7 @@ export default function AchievementsDashboard() {
 
   const fetchAchievements = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/achievements");
+      const response = await fetch("/api/achievements");
       const data = await response.json();
 
       if (data.success) {
@@ -58,7 +58,7 @@ export default function AchievementsDashboard() {
     }
 
     try {
-      const res = await fetch("http://localhost:3000/api/achievements/add", {
+      const res = await fetch("/api/achievements/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -94,7 +94,7 @@ export default function AchievementsDashboard() {
 
     try {
       const res = await fetch(
-        `http://localhost:3000/api/achievements/delete?id=${selectedAchievementId}`,
+        `/api/achievements/delete?id=${selectedAchievementId}`,
         {
           method: "DELETE",
         }

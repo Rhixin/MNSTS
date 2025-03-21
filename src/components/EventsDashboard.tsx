@@ -17,7 +17,7 @@ export default function EventsDashboard() {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/events");
+      const response = await fetch("/api/events");
       const data = await response.json();
 
       if (data.success) {
@@ -40,7 +40,7 @@ export default function EventsDashboard() {
     }
 
     try {
-      const res = await fetch("http://localhost:3000/api/events/add", {
+      const res = await fetch("/api/events/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -67,10 +67,9 @@ export default function EventsDashboard() {
 
   const handleDelete = async (eventId) => {
     try {
-      const res = await fetch(
-        `http://localhost:3000/api/events/delete/${eventId}`,
-        { method: "DELETE" }
-      );
+      const res = await fetch(`/api/events/delete/${eventId}`, {
+        method: "DELETE",
+      });
       if (!res.ok) throw new Error("Failed to delete event");
 
       setEvents(events.filter((event) => event._id !== eventId));

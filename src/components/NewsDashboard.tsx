@@ -22,7 +22,7 @@ export default function NewsDashboard() {
   const fetchNews = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:3000/api/news");
+      const response = await fetch("/api/news");
       const data = await response.json();
 
       if (data.success) {
@@ -48,12 +48,9 @@ export default function NewsDashboard() {
 
     try {
       setSubmitting(true);
-      const res = await fetch(
-        `http://localhost:3000/api/news/delete?id=${selectedNewsId}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const res = await fetch(`/api/news/delete?id=${selectedNewsId}`, {
+        method: "DELETE",
+      });
 
       if (!res.ok) throw new Error("Failed to delete news");
 
@@ -169,7 +166,7 @@ export default function NewsDashboard() {
       }
 
       // Then create the news item with the Cloudinary URL
-      const res = await fetch("http://localhost:3000/api/news/add", {
+      const res = await fetch("/api/news/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
