@@ -1,11 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Search, Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const router = useRouter();
-  const pathname = usePathname();
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuItems = [
     "Home",
     "News",
@@ -16,30 +17,8 @@ export default function Navbar() {
     "About",
   ];
 
-  // Load index from localStorage or default to 0
-  const [activeIndex, setActiveIndex] = useState(() => {
-    if (typeof window !== "undefined") {
-      return parseInt(localStorage.getItem("activeIndex")) || 0;
-    }
-    return 0;
-  });
-
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const currentPath = pathname.replace("/", "").replace(/-/g, " ");
-    const index = menuItems.findIndex(
-      (item) => item.toLowerCase() === currentPath
-    );
-    if (index !== -1) {
-      setActiveIndex(index);
-      localStorage.setItem("activeIndex", index); // Save to localStorage
-    }
-  }, [pathname]);
-
   const handleNavigation = (index, name) => {
     setActiveIndex(index);
-    localStorage.setItem("activeIndex", index); // Save to localStorage
     setIsMenuOpen(false);
     router.push(`/${name.toLowerCase().replace(/\s+/g, "-")}`);
   };

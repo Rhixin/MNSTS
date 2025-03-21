@@ -1,4 +1,8 @@
+"use client";
+
 import type { Metadata } from "next";
+import { useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { Figtree } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -21,9 +25,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (pathname === "/") {
+      router.replace("/home");
+    }
+  }, [pathname, router]);
+
   return (
     <html lang="en" className={figtree.variable}>
       <body className={`${figtree.className} min-h-screen max-w-screen`}>
+        <Navbar />
         <div className="container mx-auto flex-1 flex-col">{children}</div>
       </body>
     </html>
