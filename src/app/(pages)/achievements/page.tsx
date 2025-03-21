@@ -1,9 +1,15 @@
 "use client";
 import Achievement from "@/components/Achievement";
 import { useState, useEffect } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function Achievements() {
-  const [isOpen, setIsOpen] = useState(false);
   const [index, setIndex] = useState(0);
   const [categoryIndex, setCategoryIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(
@@ -26,7 +32,7 @@ export default function Achievements() {
         {
           headline: "National Basketball Championship Winners",
           description:
-            "The school’s basketball team secured the championship title in the National Collegiate League, showcasing outstanding teamwork and skill.",
+            "The school's basketball team secured the championship title in the National Collegiate League, showcasing outstanding teamwork and skill.",
           image_path: "images/basketball_team.png",
         },
         {
@@ -73,11 +79,10 @@ export default function Achievements() {
     },
   ];
 
-  const handleSelect = (option: string) => {
-    setSelectedOption(option);
-    setIsOpen(false);
+  const handleSelect = (value) => {
+    setSelectedOption(value);
     setIndex(0);
-    setCategoryIndex(getCategoryIndex(option, options));
+    setCategoryIndex(getCategoryIndex(value, options));
   };
 
   const nextSlide = () => {
@@ -97,31 +102,22 @@ export default function Achievements() {
       <div
         className={`duration-1000 ${isLoaded ? "opacity-100" : "opacity-0"}`}
       >
-        <div className="relative inline-block text-left">
-          {/* Dropdown Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="px-4 py-2 bg-gradient-to-b from-[rgb(9,116,68)] to-[rgb(14,175,103)] text-white rounded-md shadow-md transition"
+        <div className="w-64">
+          <Select
+            value={selectedOption}
+            onValueChange={handleSelect}
           >
-            Select Achievement: {selectedOption}
-          </button>
-
-          {/* Dropdown Menu */}
-          {isOpen && (
-            <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-2">
-              <ul className="py-2">
-                {options.map((option, index) => (
-                  <li
-                    key={index}
-                    onClick={() => handleSelect(option.category)}
-                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                  >
-                    {option.category}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+            <SelectTrigger className="w-full bg-gradient-to-b from-[rgb(9,116,68)] to-[rgb(14,175,103)] text-white">
+              <SelectValue placeholder="Select Achievement Category" />
+            </SelectTrigger>
+            <SelectContent>
+              {options.map((option, index) => (
+                <SelectItem key={index} value={option.category}>
+                  {option.category}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         {/* Carousel Container */}
