@@ -4,11 +4,18 @@ import NewsDashboard from "@/components/NewsDashboard";
 import AnnouncementsDashboard from "@/components/AnnouncementsDashboard";
 import OrganizationsDashboard from "@/components/OrganizationsDashboard";
 import AchievementsDashboard from "@/components/AchievementsDashboard";
+import EventsDashboard from "@/components/EventsDashboard";
 
 export default function Dashboard() {
   const [selectedSection, setSelectedSection] = useState("News");
 
-  const sections = ["News", "Announcements", "Organizations", "Achievements"];
+  const sections = [
+    "News",
+    "Announcements",
+    "Organizations",
+    "Achievements",
+    "Events",
+  ];
 
   return (
     <div className="flex max-h-[780px] min-h-[780px] bg-gray-100 rounded-2xl mt-6">
@@ -43,6 +50,8 @@ export default function Dashboard() {
           <OrganizationsDashboard />
         ) : selectedSection === "Achievements" ? (
           <AchievementsDashboard />
+        ) : selectedSection === "Events" ? (
+          <EventsDashboard />
         ) : (
           <p className="text-gray-600 mt-2">Content for {selectedSection}...</p>
         )}

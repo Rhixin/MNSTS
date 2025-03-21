@@ -1,11 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
+import Announcement from "./Announcement";
 
 export default function AnnouncementsDashboard() {
   const [announcements, setAnnouncements] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedAnnouncementId, setSelectedAnnouncementId] = useState(null);
   const [newContent, setNewContent] = useState("");
 
   useEffect(() => {
@@ -29,19 +32,30 @@ export default function AnnouncementsDashboard() {
     }
   };
 
-  const handleDelete = async (id) => {
+  const confirmDelete = (id) => {
+    setSelectedAnnouncementId(id);
+    setShowDeleteModal(true);
+  };
+
+  const handleDelete = async () => {
+    if (!selectedAnnouncementId) return;
+
     try {
       const res = await fetch(
-        `http://localhost:3000/api/announcements/delete/${id}`,
+        `http://localhost:3000/api/announcements/delete?id=${selectedAnnouncementId}`,
         {
           method: "DELETE",
         }
       );
-      if (!res.ok) throw new Error("Failed to delete announcement");
+      if (!res.ok) throw new Error("Failed to delete news");
 
-      setAnnouncements(announcements.filter((item) => item._id !== id));
+      setShowDeleteModal(false);
+      setSelectedAnnouncementId(
+        announcements.filter((item) => item._id !== selectedAnnouncementId)
+      );
+      fetchAnnouncements();
     } catch (err) {
-      alert("Failed to delete announcement");
+      alert("Failed to delete annoucement");
     }
   };
 
@@ -101,7 +115,7 @@ export default function AnnouncementsDashboard() {
               <td className="border p-2">
                 <button
                   className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                  onClick={() => handleDelete(item._id)}
+                  onClick={() => confirmDelete(item._id)}
                 >
                   Delete
                 </button>
@@ -117,6 +131,30 @@ export default function AnnouncementsDashboard() {
           )}
         </tbody>
       </table>
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-transparent bg-opacity-50">
+          <div className="bg-white p-6 rounded shadow-lg w-96">
+            <h2 className="text-lg font-bold mb-4">Confirm Delete</h2>
+            <p>Are you sure you want to delete this Announcement?</p>
+            <div className="flex justify-end mt-4">
+              <button
+                className="px-4 py-2 bg-gray-400 text-white rounded mr-2"
+                onClick={() => setShowDeleteModal(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="px-4 py-2 bg-red-500 text-white rounded"
+                onClick={handleDelete}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-transparent bg-opacity-50">

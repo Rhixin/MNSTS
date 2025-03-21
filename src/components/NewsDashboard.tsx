@@ -6,6 +6,8 @@ export default function NewsDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedNewsId, setSelectedNewsId] = useState(null);
   const [newTitle, setNewTitle] = useState("");
   const [newAuthor, setNewAuthor] = useState("");
   const [newContent, setNewContent] = useState("");
@@ -32,14 +34,25 @@ export default function NewsDashboard() {
     }
   };
 
-  const handleDelete = async (id) => {
+  const confirmDelete = (id) => {
+    setSelectedNewsId(id);
+    setShowDeleteModal(true);
+  };
+
+  const handleDelete = async () => {
+    if (!selectedNewsId) return;
+
     try {
-      const res = await fetch(`http://localhost:3000/api/news/delete/${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `http://localhost:3000/api/news/delete?id=${selectedNewsId}`,
+        {
+          method: "DELETE",
+        }
+      );
       if (!res.ok) throw new Error("Failed to delete news");
 
-      setNews(news.filter((item) => item.id !== id));
+      setShowDeleteModal(false);
+      setNews(news.filter((item) => item._id !== selectedNewsId));
     } catch (err) {
       alert("Failed to delete news");
     }
@@ -122,7 +135,7 @@ export default function NewsDashboard() {
               <td className="border p-2">
                 <button
                   className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                  onClick={() => handleDelete(item.id)}
+                  onClick={() => confirmDelete(item._id)}
                 >
                   Delete
                 </button>
@@ -138,6 +151,30 @@ export default function NewsDashboard() {
           )}
         </tbody>
       </table>
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-transparent bg-opacity-50">
+          <div className="bg-white p-6 rounded shadow-lg w-96">
+            <h2 className="text-lg font-bold mb-4">Confirm Delete</h2>
+            <p>Are you sure you want to delete this news article?</p>
+            <div className="flex justify-end mt-4">
+              <button
+                className="px-4 py-2 bg-gray-400 text-white rounded mr-2"
+                onClick={() => setShowDeleteModal(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="px-4 py-2 bg-red-500 text-white rounded"
+                onClick={handleDelete}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-transparent bg-opacity-50">

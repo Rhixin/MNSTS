@@ -6,6 +6,8 @@ export default function OrganizationsDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedOrganizationId, setSelectedOrganizationId] = useState(null);
   const [newOrganization, setNewOrganization] = useState({
     clubName: "",
     description: "",
@@ -38,19 +40,29 @@ export default function OrganizationsDashboard() {
     }
   };
 
-  const handleDelete = async (id) => {
+  const confirmDelete = (id) => {
+    setSelectedOrganizationId(id);
+    setShowDeleteModal(true);
+  };
+
+  const handleDelete = async () => {
+    if (!selectedOrganizationId) return;
+
     try {
       const res = await fetch(
-        `http://localhost:3000/api/organizations/delete/${id}`,
+        `http://localhost:3000/api/organizations/delete?id=${selectedOrganizationId}`,
         {
           method: "DELETE",
         }
       );
       if (!res.ok) throw new Error("Failed to delete organization");
 
-      setOrganizations(organizations.filter((item) => item._id !== id));
+      setShowDeleteModal(false);
+      setOrganizations(
+        organizations.filter((item) => item._id !== selectedOrganizationId)
+      );
     } catch (err) {
-      alert("Failed to delete organization");
+      alert("Failed to delete Organization");
     }
   };
 
@@ -131,7 +143,7 @@ export default function OrganizationsDashboard() {
               <td className="border p-2">
                 <button
                   className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                  onClick={() => handleDelete(item._id)}
+                  onClick={() => confirmDelete(item._id)}
                 >
                   Delete
                 </button>
@@ -147,6 +159,30 @@ export default function OrganizationsDashboard() {
           )}
         </tbody>
       </table>
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-transparent bg-opacity-50">
+          <div className="bg-white p-6 rounded shadow-lg w-96">
+            <h2 className="text-lg font-bold mb-4">Confirm Delete</h2>
+            <p>Are you sure you want to delete this Organization?</p>
+            <div className="flex justify-end mt-4">
+              <button
+                className="px-4 py-2 bg-gray-400 text-white rounded mr-2"
+                onClick={() => setShowDeleteModal(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="px-4 py-2 bg-red-500 text-white rounded"
+                onClick={handleDelete}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-transparent bg-opacity-50 z-50">
@@ -204,7 +240,7 @@ export default function OrganizationsDashboard() {
             />
 
             <textarea
-              placeholder="Activities (comma-separated)"
+              placeholder="Activities"
               className="w-full p-2 border rounded mb-2"
               value={newOrganization.activities}
               onChange={(e) =>
@@ -216,7 +252,7 @@ export default function OrganizationsDashboard() {
             />
 
             <textarea
-              placeholder="Projects (comma-separated)"
+              placeholder="Projects"
               className="w-full p-2 border rounded mb-2"
               value={newOrganization.projects}
               onChange={(e) =>

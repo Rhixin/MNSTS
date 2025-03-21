@@ -6,6 +6,8 @@ export default function AchievementsDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedAchievementId, setSelectedAchievementId] = useState(null);
   const [newCategory, setNewCategory] = useState("");
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
@@ -82,25 +84,28 @@ export default function AchievementsDashboard() {
     }
   };
 
-  const handleDelete = async (
-    categoryIndex,
-    achievementIndex,
-    achievementId
-  ) => {
+  const confirmDelete = (id) => {
+    setSelectedAchievementId(id);
+    setShowDeleteModal(true);
+  };
+
+  const handleDelete = async () => {
+    if (!selectedAchievementId) return;
+
     try {
       const res = await fetch(
-        `http://localhost:3000/api/achievements/delete/${achievementId}`,
-        { method: "DELETE" }
+        `http://localhost:3000/api/achievements/delete?id=${selectedAchievementId}`,
+        {
+          method: "DELETE",
+        }
       );
       if (!res.ok) throw new Error("Failed to delete achievement");
 
-      // Update the state by removing the deleted achievement
-      const updatedAchievements = [...achievements];
-      updatedAchievements[categoryIndex].achievements.splice(
-        achievementIndex,
-        1
+      setShowDeleteModal(false);
+      setAchievements(
+        achievements.filter((item) => item._id !== selectedAchievementId)
       );
-      setAchievements(updatedAchievements);
+      fetchAchievements();
     } catch (err) {
       alert("Failed to delete achievement");
     }
@@ -138,7 +143,7 @@ export default function AchievementsDashboard() {
             </thead>
             <tbody>
               {category.achievements.map((achievement, achievementIndex) => (
-                <tr key={achievement.headline} className="text-center">
+                <tr key={achievement._id} className="text-center">
                   <td className="border p-2">
                     <img
                       src={achievement.image_path}
@@ -151,13 +156,7 @@ export default function AchievementsDashboard() {
                   <td className="border p-2">
                     <button
                       className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                      onClick={() =>
-                        handleDelete(
-                          categoryIndex,
-                          achievementIndex,
-                          achievement._id
-                        )
-                      }
+                      onClick={() => confirmDelete(achievement._id)}
                     >
                       Delete
                     </button>
@@ -175,6 +174,30 @@ export default function AchievementsDashboard() {
           </table>
         </div>
       ))}
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-transparent bg-opacity-50">
+          <div className="bg-white p-6 rounded shadow-lg w-96">
+            <h2 className="text-lg font-bold mb-4">Confirm Delete</h2>
+            <p>Are you sure you want to delete this news article?</p>
+            <div className="flex justify-end mt-4">
+              <button
+                className="px-4 py-2 bg-gray-400 text-white rounded mr-2"
+                onClick={() => setShowDeleteModal(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="px-4 py-2 bg-red-500 text-white rounded"
+                onClick={handleDelete}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-transparent bg-opacity-50">
