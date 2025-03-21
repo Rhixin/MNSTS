@@ -19,7 +19,7 @@ export default function Achievement({
 
           {/* Sharp Foreground Image */}
           <img
-            src="images/school_image.png"
+            src={image_path}
             className="relative max-w-full max-h-full object-contain"
           />
         </div>

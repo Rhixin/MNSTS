@@ -3,6 +3,7 @@ import { useState } from "react";
 import NewsDashboard from "@/components/NewsDashboard";
 import AnnouncementsDashboard from "@/components/AnnouncementsDashboard";
 import OrganizationsDashboard from "@/components/OrganizationsDashboard";
+import AchievementsDashboard from "@/components/AchievementsDashboard";
 
 export default function Dashboard() {
   const [selectedSection, setSelectedSection] = useState("News");
@@ -10,7 +11,7 @@ export default function Dashboard() {
   const sections = ["News", "Announcements", "Organizations", "Achievements"];
 
   return (
-    <div className="flex max-h-[780px] min-h-[780px] bg-gray-100 rounded-2xl">
+    <div className="flex max-h-[780px] min-h-[780px] bg-gray-100 rounded-2xl mt-6">
       {/* Left Sidebar Menu */}
       <div className="w-64 bg-white shadow-lg p-4 rounded-l-2xl">
         <h2 className="text-lg font-bold mb-4">Dashboard</h2>
@@ -32,7 +33,7 @@ export default function Dashboard() {
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 p-6 overflow-x-scroll">
+      <div className="flex-1 p-6 overflow-x-auto">
         <h1 className="text-2xl font-bold">{selectedSection}</h1>
         {selectedSection === "News" ? (
           <NewsDashboard />
@@ -40,6 +41,8 @@ export default function Dashboard() {
           <AnnouncementsDashboard />
         ) : selectedSection === "Organizations" ? (
           <OrganizationsDashboard />
+        ) : selectedSection === "Achievements" ? (
+          <AchievementsDashboard />
         ) : (
           <p className="text-gray-600 mt-2">Content for {selectedSection}...</p>
         )}

@@ -72,6 +72,7 @@ body::after {
 /* Custom Rounded Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px; /* Reduced height for horizontal scrollbar */
 }
 
 ::-webkit-scrollbar-track {

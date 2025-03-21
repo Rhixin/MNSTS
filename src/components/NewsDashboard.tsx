@@ -67,8 +67,6 @@ export default function NewsDashboard() {
 
       if (!res.ok) throw new Error("Failed to add news");
 
-      const newNews = await res.json();
-
       setShowModal(false);
       setNewTitle("");
       setNewAuthor("");
