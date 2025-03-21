@@ -1,9 +1,15 @@
 "use client";
 import Achievement from "@/components/Achievement";
 import { useState, useEffect } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function Achievements() {
-  const [isOpen, setIsOpen] = useState(false);
   const [index, setIndex] = useState(0);
   const [categoryIndex, setCategoryIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState("");
