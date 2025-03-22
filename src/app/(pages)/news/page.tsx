@@ -165,7 +165,7 @@ export default function News() {
       </div>
 
       {/* Navigation / Categories */}
-      <div className="border-b border-gray-200 sticky top-0 bg-white z-10 shadow-sm">
+      <div className="border-b border-gray-200 sticky top-0 bg-white  shadow-sm">
         <div className="container mx-auto flex justify-between items-center px-4">
           <div className="flex overflow-x-auto whitespace-nowrap py-3 gap-1">
             {categories.map((category) => (
