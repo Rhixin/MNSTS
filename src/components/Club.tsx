@@ -18,9 +18,10 @@ export default function Club({
   logo_path: string;
 }) {
   return (
-    <div className="flex-row flex">
-      <div className="flex-1 flex-col">
-        <div className="relative w-[720px] h-[540px] flex justify-center items-center overflow-hidden my-4">
+    <div className="flex flex-col md:flex-row w-full">
+      {/* Image container - full width on mobile, half on desktop */}
+      <div className="w-full md:w-1/2">
+        <div className="relative w-full h-64 sm:h-96 md:h-[540px] flex justify-center items-center overflow-hidden my-4">
           {/* Blurred Background Image */}
           <div
             className="absolute inset-0 bg-center bg-cover blur-xl"
@@ -31,40 +32,42 @@ export default function Club({
           <img
             src={image_path}
             className="relative max-w-full max-h-full object-contain"
+            alt={`${clubName} image`}
           />
         </div>
       </div>
-      <div className="flex-1 flex-col flex p-8">
+
+      {/* Club info container - full width on mobile, half on desktop */}
+      <div className="w-full md:w-1/2 p-4 md:p-8">
         {/* Logo and Club Name */}
         <div className="flex items-center my-4">
           <img
             src={logo_path}
-            className="w-16 h-16 rounded-full"
-            alt="MNSTS Logo"
+            className="w-12 h-12 md:w-16 md:h-16 rounded-full"
+            alt={`${clubName} Logo`}
           />
-          <h1 className="text-4xl ml-4 text-black font-bold">{clubName}</h1>
+          <h1 className="text-2xl md:text-4xl ml-4 text-black font-bold">{clubName}</h1>
         </div>
 
         {/* Club Information */}
-
         <div>
-          <p className="text-justify">{description}</p>
+          <p className="text-justify text-sm md:text-base">{description}</p>
         </div>
 
-        <div className="bg-gray-100 p-6 rounded-xl shadow-lg flex flex-col space-y-4 my-4">
-          <p className="text-black text-xl font-semibold">
-            President: <span className="font-normal text-lg">{president}</span>
+        <div className="bg-gray-100 p-4 md:p-6 rounded-xl shadow-lg flex flex-col space-y-2 md:space-y-4 my-4">
+          <p className="text-black text-lg md:text-xl font-semibold">
+            President: <span className="font-normal text-base md:text-lg">{president}</span>
           </p>
-          <p className="text-black text-xl font-semibold">
-            Adviser: <span className="font-normal text-lg">{adviser}</span>
+          <p className="text-black text-lg md:text-xl font-semibold">
+            Adviser: <span className="font-normal text-base md:text-lg">{adviser}</span>
           </p>
-          <p className="text-black text-xl font-semibold">
+          <p className="text-black text-lg md:text-xl font-semibold">
             Activities:{" "}
-            <span className="font-normal text-lg">{activities}</span>
+            <span className="font-normal text-base md:text-lg">{activities}</span>
           </p>
-          <p className="text-black text-xl font-semibold">
+          <p className="text-black text-lg md:text-xl font-semibold">
             Projects Implemented:{" "}
-            <span className="font-normal text-lg">{projects}</span>
+            <span className="font-normal text-base md:text-lg">{projects}</span>
           </p>
         </div>
       </div>

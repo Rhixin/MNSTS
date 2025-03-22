@@ -8,34 +8,37 @@ export default function Achievement({
   image_path: string;
 }) {
   return (
-    <>
-      <div className="flex-1 flex-col items-center justify-center flex">
-        <div className="relative w-[520px] h-[400px] flex justify-center items-center overflow-hidden my-4">
+    <div className="flex flex-col md:flex-row w-full">
+      {/* Image Section - Full width on mobile, half width on medium screens and up */}
+      <div className="w-full md:w-1/2 flex items-center justify-center p-4">
+        <div className="relative w-full max-w-md h-64 sm:h-80 md:h-96 flex justify-center items-center overflow-hidden rounded-lg">
           {/* Blurred Background Image */}
           <div
-            className="absolute inset-0 bg-center bg-cover blur-xl"
+            className="absolute inset-0 bg-center bg-cover blur-xl opacity-70"
             style={{ backgroundImage: `url(${image_path})` }}
           />
 
           {/* Sharp Foreground Image */}
           <img
             src={image_path}
-            className="relative max-w-full max-h-full object-contain"
+            alt={title}
+            className="relative max-w-full max-h-full object-contain z-10"
           />
         </div>
       </div>
 
-      <div className="flex-1 flex-col flex p-8">
-        {/* Headliine */}
-        <div className="flex items-center my-4">
-          <h1 className="text-4xl text-black font-bold">{title}</h1>
+      {/* Content Section - Full width on mobile, half width on medium screens and up */}
+      <div className="w-full md:w-1/2 flex flex-col p-4 md:p-6">
+        {/* Headline */}
+        <div className="mb-4">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl text-black font-bold">{title}</h1>
         </div>
 
         {/* Description */}
         <div>
-          <p className="text-justify">{description}</p>
+          <p className="text-sm sm:text-base md:text-lg">{description}</p>
         </div>
       </div>
-    </>
+    </div>
   );
 }
