@@ -17,6 +17,7 @@ export default function Navbar() {
     "Events",
     "Organizations",
     "About",
+    "Contact Us"
   ];
 
   useEffect(() => {

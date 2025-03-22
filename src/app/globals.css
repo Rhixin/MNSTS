@@ -20,6 +20,52 @@ body {
   flex: 1;
 }
 
+/* Full page overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(88, 91, 97, 0.65); 
+  z-index: -1; 
+}
+
+/* Top Gradient */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(
+    to bottom,
+    rgba(9, 116, 68, 0.7),
+    rgba(9, 116, 68, 0)
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Bottom Gradient */
+body .bottom-gradient::after {
+  content: "";
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(
+    to top,
+    rgba(9, 116, 68, 0.7),
+    rgba(9, 116, 68, 0)
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -60,36 +106,7 @@ body {
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-body::before,
-body::after {
-  content: "";
-  position: fixed;
-  left: 0;
-  width: 100%;
-  height: 100px;
-  pointer-events: none;
-  z-index: -1;
-}
 
-/* Top Gradient */
-body::before {
-  top: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(9, 116, 68, 0.7),
-    rgba(9, 116, 68, 0)
-  );
-}
-
-/* Bottom Gradient */
-body::after {
-  bottom: 0;
-  background: linear-gradient(
-    to top,
-    rgba(9, 116, 68, 0.7),
-    rgba(9, 116, 68, 0)
-  );
-}
 
 /* Custom Rounded Scrollbar */
 ::-webkit-scrollbar {
