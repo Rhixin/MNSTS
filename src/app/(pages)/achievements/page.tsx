@@ -21,13 +21,13 @@ export default function Achievements() {
     try {
       setIsLoading(true);
       const res = await fetch("/api/achievements");
-      
+
       if (!res.ok) {
         throw new Error(`Failed to fetch: ${res.status}`);
       }
-      
+
       const data = await res.json();
-      
+
       if (data.success) {
         organizeData(data.data);
       } else {
@@ -77,8 +77,9 @@ export default function Achievements() {
 
   const prevSlide = () => {
     if (!currentAchievements.length) return;
-    setIndex((prev) => 
-      (prev - 1 + currentAchievements.length) % currentAchievements.length
+    setIndex(
+      (prev) =>
+        (prev - 1 + currentAchievements.length) % currentAchievements.length
     );
   };
 
@@ -115,7 +116,7 @@ export default function Achievements() {
     return (
       <div className="bg-white flex w-full min-h-[650px] rounded-xl p-4 flex-col items-center justify-center">
         <div className="text-red-500 text-xl mb-4">⚠️ {error}</div>
-        <button 
+        <button
           onClick={fetchData}
           className="px-4 py-2 bg-gradient-to-b from-[rgb(9,116,68)] to-[rgb(14,175,103)] text-white rounded-md shadow-md transition hover:opacity-90"
         >
@@ -128,15 +129,24 @@ export default function Achievements() {
   return (
     <div className="bg-white flex w-full min-h-[650px] rounded-xl p-4 flex-col shadow-lg">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-        
         <div className="relative inline-block text-left">
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="px-4 py-2 bg-gradient-to-b from-[rgb(9,116,68)] to-[rgb(14,175,103)] text-white rounded-md shadow-md transition hover:opacity-90 flex items-center"
           >
             <span>{selectedOption || "Select Category"}</span>
-            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isOpen ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"} />
+            <svg
+              className="w-4 h-4 ml-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d={isOpen ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"}
+              />
             </svg>
           </button>
 
@@ -148,10 +158,12 @@ export default function Achievements() {
                     key={idx}
                     onClick={() => handleSelect(option.category)}
                     className={`px-4 py-2 hover:bg-gray-100 cursor-pointer ${
-                      option.category === selectedOption ? "bg-gray-100 font-medium" : ""
+                      option.category === selectedOption
+                        ? "bg-gray-100 font-medium"
+                        : ""
                     }`}
                   >
-                    {option.category} 
+                    {option.category}
                     <span className="ml-2 text-sm text-gray-500">
                       ({option.achievements.length})
                     </span>
@@ -204,8 +216,8 @@ export default function Achievements() {
               <button
                 key={i}
                 className={`h-2.5 w-2.5 mx-1.5 rounded-full transition-all duration-300 ${
-                  index === i 
-                    ? "bg-[rgb(14,175,103)] scale-110" 
+                  index === i
+                    ? "bg-[rgb(14,175,103)] scale-110"
                     : "bg-gray-300 hover:bg-gray-400"
                 }`}
                 onClick={() => setIndex(i)}
@@ -222,7 +234,9 @@ export default function Achievements() {
       ) : (
         <div className="flex flex-col items-center justify-center flex-grow py-12">
           <div className="text-6xl mb-4">🏆</div>
-          <p className="text-xl text-gray-600 mb-2">No achievements found in this category</p>
+          <p className="text-xl text-gray-600 mb-2">
+            No achievements found in this category
+          </p>
           <p className="text-gray-500">Try selecting a different category</p>
         </div>
       )}
