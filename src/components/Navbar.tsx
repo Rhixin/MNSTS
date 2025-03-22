@@ -8,6 +8,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const menuItems = [
     "Home",
     "News",
@@ -28,6 +29,25 @@ export default function Navbar() {
     }
   }, [pathname]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    
+    // Initial check in case page is loaded at a scrolled position
+    handleScroll();
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const handleNavigation = (index, name) => {
     setActiveIndex(index);
     setIsMenuOpen(false);
@@ -39,8 +59,10 @@ export default function Navbar() {
   };
 
   return (
-    <div className="sticky top-0 w-full z-10 bg-transparent pt-2 mb-4">
-      <div className="py-2 flex flex-col md:flex-row items-center justify-between">
+    <div className={`sticky top-0 w-full z-10 transition-all duration-300 ${
+      isScrolled ? "bg-white/70 backdrop-blur-md shadow-md" : "bg-transparent"
+    }`}>
+      <div className="py-2 px-4 md:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
         {/* Logo and Title */}
         <div className="flex items-center w-full justify-between md:justify-start">
           <div className="flex items-center">
@@ -49,7 +71,9 @@ export default function Navbar() {
               className="w-12 h-12 md:w-14 md:h-14 rounded-full border-2 border-white shadow-md"
               alt="MNSTS Logo"
             />
-            <h1 className="text-xl sm:text-xl md:text-2xl ml-2 md:ml-4 text-white font-bold">
+            <h1 className={`text-xl sm:text-xl md:text-2xl ml-2 md:ml-4 font-bold transition-colors duration-300 ${
+              isScrolled ? "text-[#0a4d2e]" : "text-white"
+            }`}>
               <span className="hidden sm:inline">
                 Medellin National Science and Technology School
               </span>
@@ -58,7 +82,9 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Menu Button */}
-          <button className="md:hidden text-white" onClick={toggleMenu}>
+          <button className={`md:hidden transition-colors duration-300 ${
+            isScrolled ? "text-[#0a4d2e]" : "text-white"
+          }`} onClick={toggleMenu}>
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
@@ -77,7 +103,9 @@ export default function Navbar() {
       </div>
 
       {/* Desktop Navigation */}
-      <div className="hidden md:block bg-white rounded-full relative w-full shadow-inner mt-2">
+      <div className={`hidden md:block rounded-full relative w-full shadow-inner transition-colors duration-300 ${
+        isScrolled ? "bg-white/80" : "bg-white"
+      }`}>
         <ul className="flex w-full justify-between relative">
           {/* Moving Background Indicator */}
           <div
@@ -107,7 +135,7 @@ export default function Navbar() {
 
       {/* Mobile Navigation Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white rounded-lg mt-2 shadow-lg overflow-hidden transition-all duration-300">
+        <div className="md:hidden bg-white/95 backdrop-blur-sm shadow-lg overflow-hidden transition-all duration-300">
           <ul className="flex flex-col w-full">
             {menuItems.map((item, index) => (
               <li
@@ -128,7 +156,7 @@ export default function Navbar() {
             ))}
 
             {/* Search Bar in Mobile Menu */}
-            <li className="p-4">
+            {/* <li className="p-4">
               <div className="relative">
                 <input
                   type="text"
@@ -139,7 +167,7 @@ export default function Navbar() {
                   <Search size={18} className="text-[#0a4d2e]" />
                 </button>
               </div>
-            </li>
+            </li> */}
           </ul>
         </div>
       )}
