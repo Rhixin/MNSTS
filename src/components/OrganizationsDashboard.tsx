@@ -238,13 +238,13 @@ export default function OrganizationsDashboard() {
         <table className="w-full border-collapse border border-gray-200">
           <thead>
             <tr className="bg-gray-100">
+              <th className="border p-2">Image</th>
+              <th className="border p-2">Logo</th>
               <th className="border p-2">Club Name</th>
               <th className="border p-2">President</th>
               <th className="border p-2">Adviser</th>
               <th className="border p-2">Activities</th>
               <th className="border p-2">Projects</th>
-              <th className="border p-2">Image Path</th>
-              <th className="border p-2">Logo Path</th>
               <th className="border p-2">Created At</th>
               <th className="border p-2">Actions</th>
             </tr>
@@ -252,11 +252,6 @@ export default function OrganizationsDashboard() {
           <tbody>
             {organizations.map((item) => (
               <tr key={item._id} className="text-center">
-                <td className="border p-2">{item.clubName}</td>
-                <td className="border p-2">{item.president}</td>
-                <td className="border p-2">{item.adviser}</td>
-                <td className="border p-2">{item.activities}</td>
-                <td className="border p-2">{item.projects}</td>
                 <td className="border p-2">
                   <img
                     src={item.image_path}
@@ -271,6 +266,12 @@ export default function OrganizationsDashboard() {
                     className="w-16 h-16 object-cover mx-auto rounded"
                   />
                 </td>
+                <td className="border p-2">{item.clubName}</td>
+                <td className="border p-2">{item.president}</td>
+                <td className="border p-2">{item.adviser}</td>
+                <td className="border p-2">{item.activities}</td>
+                <td className="border p-2">{item.projects}</td>
+
                 <td className="border p-2">{item.createdAt}</td>
                 <td className="border p-2">
                   <button
