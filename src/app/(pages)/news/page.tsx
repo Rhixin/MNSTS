@@ -361,7 +361,7 @@ export default function News() {
                 {regularNews.map((news) => (
                   <div
                     key={news._id}
-                    className="flex flex-col border border-gray-100 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow group"
+                    className="flex flex-col relative border border-gray-100 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow group"
                   >
                     <div className="relative h-40 overflow-hidden">
                       <img
@@ -388,7 +388,7 @@ export default function News() {
                     </div>
                     <button
                       onClick={() => handleNewsClick(news)}
-                      className="absolute inset-0 w-full h-full cursor-pointer"
+                      className="absolute inset-0 w-full h-full cursor-pointer z-10"
                       aria-label={`Read more about ${news.title}`}
                     />
                   </div>

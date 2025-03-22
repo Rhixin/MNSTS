@@ -4,18 +4,18 @@ import { motion } from "framer-motion";
 
 export default function About() {
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center w-full px-4 md:px-6 lg:px-8">
       {/* STORY */}
-      <section className="min-h-[650px] bg-transparent w-full mb-60">
-        <div className="flex flex-col flex-2 items-center justify-center p-4">
+      <section className="min-h-[400px] md:min-h-[550px] lg:min-h-[650px] w-full my-16 md:my-24 lg:my-32">
+        <div className="flex flex-col items-center justify-center">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
-            className="bg-white px-12 py-8 rounded-4xl shadow-xl w-[60%]"
+            className="bg-white px-6 sm:px-8 md:px-12 py-6 md:py-8 rounded-3xl md:rounded-4xl shadow-xl w-full sm:w-[90%] md:w-[80%] lg:w-[60%]"
           >
-            <h2 className="text-3xl mb-6 font-bold text-center">Our Story</h2>
-            <p className="text-lg text-justify leading-10">
+            <h2 className="text-2xl md:text-3xl mb-4 md:mb-6 font-bold text-center">Our Story</h2>
+            <p className="text-base md:text-lg text-justify leading-7 md:leading-10">
               In its early years, when no dedicated building or sufficient rooms
               were available, classes at the Medellin National Science and
               Technology School (MNSTS) were conducted at Medellin Central
@@ -33,13 +33,13 @@ export default function About() {
       </section>
 
       {/* FACULTY AND STUDENTS */}
-      <section className="min-h-[650px] bg-transparent w-full mb-60">
-        <div className="flex flex-col flex-2 items-center justify-center p-4">
+      <section className="min-h-[400px] md:min-h-[550px] lg:min-h-[650px] w-full my-16 md:my-24 lg:my-32">
+        <div className="flex flex-col items-center justify-center">
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="bg-white px-12 py-8 rounded-4xl shadow-xl w-[60%] flex justify-evenly h-[70%] items-center"
+            className="bg-white px-6 sm:px-8 md:px-12 py-6 md:py-8 rounded-3xl md:rounded-4xl shadow-xl w-full sm:w-[90%] md:w-[80%] lg:w-[60%] flex flex-col md:flex-row justify-evenly items-center gap-8 md:gap-4"
           >
             <Counter end={18} label="Faculty Members" />
             <Counter end={400} label="Students" />
@@ -48,19 +48,19 @@ export default function About() {
       </section>
 
       {/* EXCELLENCE */}
-      <section className="min-h-[650px] bg-transparent w-full mb-60">
-        <div className="flex flex-col md:flex-row">
-          <div className="flex flex-col flex-2 justify-center p-4">
+      <section className="min-h-[400px] md:min-h-[550px] lg:min-h-[650px] w-full my-16 md:my-24 lg:my-32">
+        <div className="flex flex-col md:flex-row items-center">
+          <div className="flex flex-col justify-center p-4 w-full md:w-1/2 lg:w-3/5 order-2 md:order-1">
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7 }}
-              className="bg-white px-12 py-8 rounded-4xl shadow-xl"
+              className="bg-white px-6 sm:px-8 md:px-12 py-6 md:py-8 rounded-3xl md:rounded-4xl shadow-xl"
             >
-              <h2 className="text-3xl mb-6 font-bold">
+              <h2 className="text-2xl md:text-3xl mb-4 md:mb-6 font-bold">
                 Excellence in education across fields
               </h2>
-              <p className="text-lg text-justify">
+              <p className="text-base md:text-lg text-justify">
                 At our science high school, we strive to provide students with a
                 dynamic and enriching learning environment that fosters curiosity,
                 innovation, and critical thinking. Our focus on science and
@@ -73,41 +73,45 @@ export default function About() {
               </p>
             </motion.div>
           </div>
-          <div className="flex flex-1 justify-center items-center">
-            <img src="images/about_excellence.png" className="object-contain" alt="Excellence in Education" />
+          <div className="flex justify-center items-center w-full md:w-1/2 lg:w-2/5 p-4 order-1 md:order-2 mb-6 md:mb-0">
+            <img 
+              src="images/about_excellence.png" 
+              className="object-contain max-w-full h-auto" 
+              alt="Excellence in Education" 
+            />
           </div>
         </div>
       </section>
 
       {/* VISION */}
-      <section className="min-h-[650px] w-full mb-60 flex items-center justify-center flex-col py-16">
-        <h2 className="text-5xl mb-6 font-bold text-amber-100">THE DEPED VISION</h2>
+      <section className="min-h-[400px] md:min-h-[550px] lg:min-h-[650px] w-full my-16 md:my-24 lg:my-32 flex items-center justify-center flex-col py-8 md:py-16">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl mb-6 font-bold text-amber-100 text-center px-4">THE DEPED VISION</h2>
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7 }}
-          className="flex flex-1 justify-center"
+          className="flex justify-center w-full px-4"
         >
           <img
             src="images/vision.png"
-            className="object-contain max-w-[750px] max-h-[500px]"
+            className="object-contain w-full max-w-[750px] h-auto"
             alt="DepEd Vision"
           />
         </motion.div>
       </section>
 
       {/* MISSION */}
-      <section className="min-h-[650px] w-full mb-60 flex items-center justify-center flex-col py-16">
-        <h2 className="text-5xl mb-6 font-bold text-amber-100">THE DEPED MISSION</h2>
+      <section className="min-h-[400px] md:min-h-[550px] lg:min-h-[650px] w-full my-16 md:my-24 lg:my-32 flex items-center justify-center flex-col py-8 md:py-16">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl mb-6 font-bold text-amber-100 text-center px-4">THE DEPED MISSION</h2>
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7 }}
-          className="flex flex-1 justify-center"
+          className="flex justify-center w-full px-4"
         >
           <img
             src="images/mission.png"
-            className="object-contain max-w-[750px] max-h-[500px]"
+            className="object-contain w-full max-w-[750px] h-auto"
             alt="DepEd Mission"
           />
         </motion.div>

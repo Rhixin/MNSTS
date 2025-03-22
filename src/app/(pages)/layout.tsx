@@ -8,7 +8,9 @@ export default function PagesLayout({
   return (
     <div className="min-h-screen">
       <Navbar />
-      {children}
+      <div className="pt-6 md:pt-8">
+        {children}
+      </div>
     </div>
   );
 }
