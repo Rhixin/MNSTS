@@ -1,11 +1,16 @@
 "use client";
 import { useEffect, useState } from "react";
+import DeleteModal from "./DeleteModal";
+import LoadingSpinner from "./LoadingSpinner";
 
 export default function EventsDashboard() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedEventId, setSelectedEventId] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
   const [newTitle, setNewTitle] = useState("");
   const [newDate, setNewDate] = useState("");
   const [newTime, setNewTime] = useState("");
@@ -65,25 +70,37 @@ export default function EventsDashboard() {
     }
   };
 
-  const handleDelete = async (eventId) => {
+  const confirmDelete = (id) => {
+    setSelectedEventId(id);
+    setShowDeleteModal(true);
+  };
+
+  const handleDelete = async () => {
+    if (!setSelectedEventId) return;
+
     try {
-      const res = await fetch(`/api/events/delete/${eventId}`, {
+      setSubmitting(true);
+      const res = await fetch(`/api/events/delete?id=${selectedEventId}`, {
         method: "DELETE",
       });
-      if (!res.ok) throw new Error("Failed to delete event");
 
-      setEvents(events.filter((event) => event._id !== eventId));
+      if (!res.ok) throw new Error("Failed to delete news");
+
+      setShowDeleteModal(false);
+      setSelectedEventId(events.filter((item) => item._id !== selectedEventId));
+      fetchEvents();
     } catch (err) {
-      alert("Failed to delete event");
+      setError("Failed to delete news. Please try again.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
-  if (loading) return <p>Loading events...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (
     <div className="bg-white p-4 shadow rounded-lg">
-      {events.length === 0 && (
+      {events.length === 0 && !loading && (
         <p className="text-gray-500">No events available.</p>
       )}
 
@@ -96,40 +113,53 @@ export default function EventsDashboard() {
         </button>
       </div>
 
-      <table className="w-full border-collapse border border-gray-200">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="border p-2">Title</th>
-            <th className="border p-2">Date</th>
-            <th className="border p-2">Time</th>
-            <th className="border p-2">Location</th>
-            <th className="border p-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {events.map((event) => (
-            <tr key={event._id} className="text-center">
-              <td className="border p-2">{event.title}</td>
-              <td className="border p-2">
-                {new Date(event.date).toLocaleDateString()}
-              </td>
-              <td className="border p-2">{event.time}</td>
-              <td className="border p-2">{event.location}</td>
-              <td className="border p-2">
-                <button
-                  className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                  onClick={() => handleDelete(event._id)}
-                >
-                  Delete
-                </button>
-              </td>
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <table className="w-full border-collapse border border-gray-200">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="border p-2">Title</th>
+              <th className="border p-2">Date</th>
+              <th className="border p-2">Time</th>
+              <th className="border p-2">Location</th>
+              <th className="border p-2">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {events.map((event) => (
+              <tr key={event._id} className="text-center">
+                <td className="border p-2">{event.title}</td>
+                <td className="border p-2">
+                  {new Date(event.date).toLocaleDateString()}
+                </td>
+                <td className="border p-2">{event.time}</td>
+                <td className="border p-2">{event.location}</td>
+                <td className="border p-2">
+                  <button
+                    className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                    onClick={() => confirmDelete(event._id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && (
+        <DeleteModal
+          onClose={() => setShowDeleteModal(false)}
+          onConfirm={handleDelete}
+          type={"Events"}
+        />
+      )}
 
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-transparent bg-opacity-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-transparent bg-opacity-50  backdrop-blur-sm">
           <div className="bg-white p-6 rounded shadow-lg w-96">
             <h2 className="text-lg font-bold mb-4">Add Event</h2>
 

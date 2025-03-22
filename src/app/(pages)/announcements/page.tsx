@@ -45,12 +45,23 @@ export default function Announcements() {
     show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
-  if (loading) return <p>Loading announcements...</p>;
+  if (loading)
+    return (
+      <div className="min-h-[650px] bg-white w-full p-6 rounded-xl overflow-auto">
+        {[...Array(5)].map((_, index) => (
+          <div
+            key={index}
+            className="w-full h-20 bg-gray-300 rounded-md mb-4 animate-pulse"
+          ></div>
+        ))}
+      </div>
+    );
+
   if (!announcements.length) return <p>No announcements available.</p>;
 
   return (
     <motion.div
-      className=" min-h-[650px] bg-white w-full p-6 rounded-xl overflow-auto"
+      className="min-h-[650px] bg-white w-full p-6 rounded-xl overflow-auto"
       variants={containerVariants}
       initial="hidden"
       animate="show"

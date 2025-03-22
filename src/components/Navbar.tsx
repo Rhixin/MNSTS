@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { Search, Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const router = useRouter();
+  const pathname = usePathname();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuItems = [
@@ -16,6 +17,16 @@ export default function Navbar() {
     "Organizations",
     "About",
   ];
+
+  useEffect(() => {
+    const currentPath = pathname.replace("/", "").replace(/-/g, " ");
+    const index = menuItems.findIndex(
+      (item) => item.toLowerCase() === currentPath
+    );
+    if (index !== -1) {
+      setActiveIndex(index);
+    }
+  }, [pathname]);
 
   const handleNavigation = (index, name) => {
     setActiveIndex(index);

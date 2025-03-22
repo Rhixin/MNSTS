@@ -1,5 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
+import DeleteModal from "./DeleteModal";
+import LoadingSpinner from "./LoadingSpinner";
 
 export default function AchievementsDashboard() {
   const [achievements, setAchievements] = useState([]);
@@ -111,12 +113,11 @@ export default function AchievementsDashboard() {
     }
   };
 
-  if (loading) return <p>Loading achievements...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (
     <div className="bg-white p-4 shadow rounded-lg">
-      {achievements.length === 0 && (
+      {achievements.length === 0 && !loading && (
         <p className="text-gray-500">No achievements available.</p>
       )}
 
@@ -129,78 +130,67 @@ export default function AchievementsDashboard() {
         </button>
       </div>
 
-      {achievements.map((category, categoryIndex) => (
-        <div key={category.category} className="mb-6">
-          <h2 className="text-lg font-semibold mb-2">{category.category}</h2>
-          <table className="w-full border-collapse border border-gray-200">
-            <thead>
-              <tr className="bg-gray-100">
-                <th className="border p-2">Image</th>
-                <th className="border p-2">Headline</th>
-                <th className="border p-2">Description</th>
-                <th className="border p-2">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {category.achievements.map((achievement, achievementIndex) => (
-                <tr key={achievement._id} className="text-center">
-                  <td className="border p-2">
-                    <img
-                      src={achievement.image_path}
-                      alt={achievement.headline}
-                      className="w-16 h-16 object-cover"
-                    />
-                  </td>
-                  <td className="border p-2">{achievement.headline}</td>
-                  <td className="border p-2">{achievement.description}</td>
-                  <td className="border p-2">
-                    <button
-                      className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                      onClick={() => confirmDelete(achievement._id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        achievements.map((category, categoryIndex) => (
+          <div key={category.category} className="mb-6">
+            <h2 className="text-lg font-semibold mb-2">{category.category}</h2>
+            <table className="w-full border-collapse border border-gray-200">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="border p-2">Image</th>
+                  <th className="border p-2">Headline</th>
+                  <th className="border p-2">Description</th>
+                  <th className="border p-2">Actions</th>
                 </tr>
-              ))}
-              {category.achievements.length === 0 && (
-                <tr>
-                  <td colSpan={4} className="border p-2 text-gray-500">
-                    No achievements in this category.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      ))}
+              </thead>
+              <tbody>
+                {category.achievements.map((achievement, achievementIndex) => (
+                  <tr key={achievement._id} className="text-center">
+                    <td className="border p-2">
+                      <img
+                        src={achievement.image_path}
+                        alt={achievement.headline}
+                        className="w-16 h-16 object-cover"
+                      />
+                    </td>
+                    <td className="border p-2">{achievement.headline}</td>
+                    <td className="border p-2">{achievement.description}</td>
+                    <td className="border p-2">
+                      <button
+                        className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                        onClick={() => confirmDelete(achievement._id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+                {category.achievements.length === 0 && (
+                  <tr>
+                    <td colSpan={4} className="border p-2 text-gray-500">
+                      No achievements in this category.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        ))
+      )}
 
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-transparent bg-opacity-50">
-          <div className="bg-white p-6 rounded shadow-lg w-96">
-            <h2 className="text-lg font-bold mb-4">Confirm Delete</h2>
-            <p>Are you sure you want to delete this news article?</p>
-            <div className="flex justify-end mt-4">
-              <button
-                className="px-4 py-2 bg-gray-400 text-white rounded mr-2"
-                onClick={() => setShowDeleteModal(false)}
-              >
-                Cancel
-              </button>
-              <button
-                className="px-4 py-2 bg-red-500 text-white rounded"
-                onClick={handleDelete}
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
+        <DeleteModal
+          onClose={() => setShowDeleteModal(false)}
+          onConfirm={handleDelete}
+          type={"Achievement"}
+        />
       )}
 
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-transparent bg-opacity-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-transparent bg-opacity-50  backdrop-blur-sm">
           <div className="bg-white p-6 rounded shadow-lg w-96">
             <h2 className="text-lg font-bold mb-4">Add Achievement</h2>
 

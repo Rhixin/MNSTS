@@ -31,26 +31,27 @@ export default function Organization() {
     fetchNews();
   }, []);
 
-  const handleSelect = (index: number) => {
+  const handleSelect = (index) => {
     setSelectedOption(index);
     setIsOpen(false);
   };
-
-  if (loading) return <p>Loading clubs...</p>;
-  if (!clubs.length) return <p>No clubs available.</p>;
 
   return (
     <div className="bg-white flex w-full min-h-[650px] rounded-xl p-4 flex-col">
       {/* Dropdown Menu */}
       <div className="relative inline-block text-left">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="px-4 py-2 bg-gradient-to-b from-[rgb(9,116,68)] to-[rgb(14,175,103)] text-white rounded-md shadow-md transition"
-        >
-          {clubs.length > 0
-            ? `Select Organization: ${clubs[selectedOption]?.clubName}`
-            : "Loading..."}
-        </button>
+        {loading ? (
+          <div className="w-48 h-10 bg-gray-200 animate-pulse rounded-md" />
+        ) : (
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="px-4 py-2 bg-gradient-to-b from-[rgb(9,116,68)] to-[rgb(14,175,103)] text-white rounded-md shadow-md transition"
+          >
+            {clubs.length > 0
+              ? `Select Organization: ${clubs[selectedOption]?.clubName}`
+              : "No clubs available"}
+          </button>
+        )}
 
         {isOpen && clubs.length > 0 && (
           <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-2">
