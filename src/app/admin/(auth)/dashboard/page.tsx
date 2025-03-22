@@ -90,65 +90,69 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-100 rounded-2xl">
-      {/* Left Sidebar Menu */}
-      <div className="w-64 bg-white shadow-lg p-4 rounded-l-2xl flex flex-col">
-        <h2 className="text-lg font-bold mb-4">Dashboard</h2>
-        <ul className="flex-1">
-          {sections.map((section) => (
-            <li
-              key={section}
-              className={`p-3 rounded-lg cursor-pointer ${
-                selectedSection === section
-                  ? "bg-gray-200 font-semibold"
-                  : "hover:bg-gray-100"
-              }`}
-              onClick={() => setSelectedSection(section)}
-            >
-              {section}
-            </li>
-          ))}
-        </ul>
+    <div className="py-8 min-h-screen flex justify-center items-center">
+      <div className="flex min-h-[90vh] bg-gray-100 rounded-2xl">
+        {/* Left Sidebar Menu */}
+        <div className="w-64 bg-white shadow-lg p-4 rounded-l-2xl flex flex-col">
+          <h2 className="text-lg font-bold mb-4">Dashboard</h2>
+          <ul className="flex-1">
+            {sections.map((section) => (
+              <li
+                key={section}
+                className={`p-3 rounded-lg cursor-pointer ${
+                  selectedSection === section
+                    ? "bg-gray-200 font-semibold"
+                    : "hover:bg-gray-100"
+                }`}
+                onClick={() => setSelectedSection(section)}
+              >
+                {section}
+              </li>
+            ))}
+          </ul>
 
-        {/* Logout Button */}
-        <button
-          onClick={handleLogout}
-          className="mt-auto p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors flex items-center justify-center"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+          {/* Logout Button */}
+          <button
+            onClick={handleLogout}
+            className="mt-auto p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors flex items-center justify-center"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-            />
-          </svg>
-          Log Out
-        </button>
-      </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+              />
+            </svg>
+            Log Out
+          </button>
+        </div>
 
-      {/* Main Content Area */}
-      <div className="flex-1 p-6 overflow-x-auto">
-        <h1 className="text-2xl font-bold">{selectedSection}</h1>
-        {selectedSection === "News" ? (
-          <NewsDashboard />
-        ) : selectedSection === "Announcements" ? (
-          <AnnouncementsDashboard />
-        ) : selectedSection === "Organizations" ? (
-          <OrganizationsDashboard />
-        ) : selectedSection === "Achievements" ? (
-          <AchievementsDashboard />
-        ) : selectedSection === "Events" ? (
-          <EventsDashboard />
-        ) : (
-          <p className="text-gray-600 mt-2">Content for {selectedSection}...</p>
-        )}
+        {/* Main Content Area */}
+        <div className="flex-1 p-6 overflow-x-auto">
+          <h1 className="text-2xl font-bold">{selectedSection}</h1>
+          {selectedSection === "News" ? (
+            <NewsDashboard />
+          ) : selectedSection === "Announcements" ? (
+            <AnnouncementsDashboard />
+          ) : selectedSection === "Organizations" ? (
+            <OrganizationsDashboard />
+          ) : selectedSection === "Achievements" ? (
+            <AchievementsDashboard />
+          ) : selectedSection === "Events" ? (
+            <EventsDashboard />
+          ) : (
+            <p className="text-gray-600 mt-2">
+              Content for {selectedSection}...
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -67,12 +67,18 @@ export default function Login() {
           </div>
 
           {error && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4" role="alert">
+            <div
+              className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4"
+              role="alert"
+            >
               <span className="block sm:inline">{error}</span>
             </div>
           )}
 
-          <form onSubmit={handleLogin} className="flex-1 flex items-start justify-center flex-col w-full">
+          <form
+            onSubmit={handleLogin}
+            className="flex-1 flex items-start justify-center flex-col w-full"
+          >
             <span className="flex flex-col space-y-2 w-full">
               <label className="font-medium">Username</label>
               <input
@@ -100,7 +106,7 @@ export default function Login() {
             </span>
 
             <div className="mt-4 w-full">
-              <button 
+              <button
                 type="submit"
                 className="w-full bg-[#097444] text-white py-2 rounded-md hover:bg-[#28513c] transition hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={loading}
