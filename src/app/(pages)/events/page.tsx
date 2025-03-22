@@ -129,7 +129,7 @@ export default function Event() {
             <div className="space-y-4">
               {selectedEvents.map((event) => (
                 <div
-                  key={event.id}
+                  key={event._id}
                   className="border-l-4 border-amber-400 pl-4 py-2"
                 >
                   <h3 className="font-semibold text-lg">{event.title}</h3>
