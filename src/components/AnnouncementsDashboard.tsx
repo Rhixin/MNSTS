@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import Announcement from "./Announcement";
+import DeleteModal from "./DeleteModal";
+import LoadingSpinner from "./LoadingSpinner";
 
 export default function AnnouncementsDashboard() {
   const [announcements, setAnnouncements] = useState([]);
@@ -85,7 +87,6 @@ export default function AnnouncementsDashboard() {
     }
   };
 
-  if (loading) return <p>Loading announcements...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (
@@ -99,61 +100,50 @@ export default function AnnouncementsDashboard() {
         </button>
       </div>
 
-      <table className="w-full border-collapse border border-gray-200">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="border p-2">Content</th>
-            <th className="border p-2">Date</th>
-            <th className="border p-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {announcements.map((item) => (
-            <tr key={item._id} className="text-center">
-              <td className="border p-2">{item.content}</td>
-              <td className="border p-2">{item.createdAt}</td>
-              <td className="border p-2">
-                <button
-                  className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                  onClick={() => confirmDelete(item._id)}
-                >
-                  Delete
-                </button>
-              </td>
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <table className="w-full border-collapse border border-gray-200">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="border p-2">Content</th>
+              <th className="border p-2">Date</th>
+              <th className="border p-2">Actions</th>
             </tr>
-          ))}
-          {announcements.length === 0 && (
-            <tr>
-              <td colSpan={3} className="border p-2 text-gray-500">
-                No announcements available.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {announcements.map((item) => (
+              <tr key={item._id} className="text-center">
+                <td className="border p-2">{item.content}</td>
+                <td className="border p-2">{item.createdAt}</td>
+                <td className="border p-2">
+                  <button
+                    className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                    onClick={() => confirmDelete(item._id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+            {announcements.length === 0 && (
+              <tr>
+                <td colSpan={3} className="border p-2 text-gray-500">
+                  No announcements available.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      )}
 
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-transparent bg-opacity-50">
-          <div className="bg-white p-6 rounded shadow-lg w-96">
-            <h2 className="text-lg font-bold mb-4">Confirm Delete</h2>
-            <p>Are you sure you want to delete this Announcement?</p>
-            <div className="flex justify-end mt-4">
-              <button
-                className="px-4 py-2 bg-gray-400 text-white rounded mr-2"
-                onClick={() => setShowDeleteModal(false)}
-              >
-                Cancel
-              </button>
-              <button
-                className="px-4 py-2 bg-red-500 text-white rounded"
-                onClick={handleDelete}
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
+        <DeleteModal
+          onClose={() => setShowDeleteModal(false)}
+          onConfirm={handleDelete}
+          type={"Announcement"}
+        />
       )}
 
       {showModal && (

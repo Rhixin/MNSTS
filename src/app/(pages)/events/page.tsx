@@ -49,7 +49,36 @@ export default function Event() {
     setSelectedEvents(filtered);
   };
 
-  if (loading) return <p>Loading Events...</p>;
+  if (loading)
+    return (
+      <div className="flex flex-col md:flex-row gap-8 p-6">
+        <div className="bg-white p-4 rounded-lg shadow-md">
+          <h2 className="text-2xl font-bold mb-4">CALENDAR</h2>
+          <Calendar
+            mode="single"
+            selected={date}
+            onSelect={handleDateChange}
+            className="rounded-md border"
+          />
+        </div>
+
+        <div className="flex-1">
+          <div className="bg-white p-4 rounded-lg shadow-md">
+            <h2 className="text-2xl font-bold mb-4">UPCOMING EVENTS</h2>
+
+            <div className="mt-6">
+              <div className="w-full h-20 bg-gray-300 rounded-md mb-4 animate-pulse"></div>
+              <div className="w-full h-10 bg-gray-300 rounded-md mb-4 animate-pulse"></div>
+              <div className="w-full h-10 bg-gray-300 rounded-md mb-4 animate-pulse"></div>
+              <div className="w-full h-10 bg-gray-300 rounded-md mb-4 animate-pulse"></div>
+              <div className="w-full h-10 bg-gray-300 rounded-md mb-4 animate-pulse"></div>
+              <div className="w-full h-10 bg-gray-300 rounded-md mb-4 animate-pulse"></div>
+              <div className="w-full h-10 bg-gray-300 rounded-md mb-4 animate-pulse"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
 
   return (
     <div className="flex flex-col md:flex-row gap-8 p-6">

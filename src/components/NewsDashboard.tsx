@@ -1,5 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
+import DeleteModal from "./DeleteModal";
+import LoadingSpinner from "./LoadingSpinner";
 
 export default function NewsDashboard() {
   const [news, setNews] = useState([]);
@@ -192,13 +194,6 @@ export default function NewsDashboard() {
     }
   };
 
-  // Loading spinner component
-  const LoadingSpinner = () => (
-    <div className="flex justify-center items-center py-10">
-      <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[#0a4d2e]"></div>
-    </div>
-  );
-
   return (
     <div className="bg-white p-6 shadow-md rounded-lg">
       <div className="flex justify-between items-center mb-6">
@@ -286,26 +281,11 @@ export default function NewsDashboard() {
 
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-transparent bg-opacity-50">
-          <div className="bg-white p-6 rounded shadow-lg w-96">
-            <h2 className="text-lg font-bold mb-4">Confirm Delete</h2>
-            <p>Are you sure you want to delete this News?</p>
-            <div className="flex justify-end mt-4">
-              <button
-                className="px-4 py-2 bg-gray-400 text-white rounded mr-2"
-                onClick={() => setShowDeleteModal(false)}
-              >
-                Cancel
-              </button>
-              <button
-                className="px-4 py-2 bg-red-500 text-white rounded"
-                onClick={handleDelete}
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
+        <DeleteModal
+          onClose={() => setShowDeleteModal(false)}
+          onConfirm={handleDelete}
+          type={"News"}
+        />
       )}
 
       {/* Modal */}

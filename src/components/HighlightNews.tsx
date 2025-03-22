@@ -14,10 +14,19 @@ export default function HighlightNews({
   return (
     <div className="flex flex-col h-full">
       {/* Image Container */}
-      <div className="relative w-full h-[400px] flex justify-center items-center overflow-hidden rounded-lg">
+      <div className="relative w-full h-[400px] flex justify-center items-center overflow-hidden rounded-lg backdrop-blur-3xl">
+        {/* Blurred Background */}
         <img
           src={image_path}
-          className="w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover blur-md"
+          alt={`${title} background`}
+          aria-hidden="true"
+        />
+
+        {/* Main Image */}
+        <img
+          src={image_path}
+          className="relative z-10 max-w-full max-h-full object-contain"
           alt={title}
         />
       </div>

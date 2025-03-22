@@ -1,5 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
+import DeleteModal from "./DeleteModal";
+import LoadingSpinner from "./LoadingSpinner";
 
 export default function OrganizationsDashboard() {
   const [organizations, setOrganizations] = useState([]);
@@ -101,7 +103,6 @@ export default function OrganizationsDashboard() {
     }
   };
 
-  if (loading) return <p>Loading organizations...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (
@@ -115,73 +116,74 @@ export default function OrganizationsDashboard() {
         </button>
       </div>
 
-      <table className="w-full border-collapse border border-gray-200">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="border p-2">Club Name</th>
-            <th className="border p-2">President</th>
-            <th className="border p-2">Adviser</th>
-            <th className="border p-2">Activities</th>
-            <th className="border p-2">Projects</th>
-            <th className="border p-2">Image Path</th>
-            <th className="border p-2">Logo Path</th>
-            <th className="border p-2">Created At</th>
-            <th className="border p-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {organizations.map((item) => (
-            <tr key={item._id} className="text-center">
-              <td className="border p-2">{item.clubName}</td>
-              <td className="border p-2">{item.president}</td>
-              <td className="border p-2">{item.adviser}</td>
-              <td className="border p-2">{item.activities}</td>
-              <td className="border p-2">{item.projects}</td>
-              <td className="border p-2">{item.image_path}</td>
-              <td className="border p-2">{item.logo_path}</td>
-              <td className="border p-2">{item.createdAt}</td>
-              <td className="border p-2">
-                <button
-                  className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                  onClick={() => confirmDelete(item._id)}
-                >
-                  Delete
-                </button>
-              </td>
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <table className="w-full border-collapse border border-gray-200">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="border p-2">Club Name</th>
+              <th className="border p-2">President</th>
+              <th className="border p-2">Adviser</th>
+              <th className="border p-2">Activities</th>
+              <th className="border p-2">Projects</th>
+              <th className="border p-2">Image Path</th>
+              <th className="border p-2">Logo Path</th>
+              <th className="border p-2">Created At</th>
+              <th className="border p-2">Actions</th>
             </tr>
-          ))}
-          {organizations.length === 0 && (
-            <tr>
-              <td colSpan={4} className="border p-2 text-gray-500">
-                No organizations available.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {organizations.map((item) => (
+              <tr key={item._id} className="text-center">
+                <td className="border p-2">{item.clubName}</td>
+                <td className="border p-2">{item.president}</td>
+                <td className="border p-2">{item.adviser}</td>
+                <td className="border p-2">{item.activities}</td>
+                <td className="border p-2">{item.projects}</td>
+                <td className="border p-2">
+                  <img
+                    src={item.image_path}
+                    alt={item.title}
+                    className="w-16 h-16 object-cover mx-auto rounded"
+                  />
+                </td>
+                <td className="border p-2">
+                  <img
+                    src={item.logo_path}
+                    alt={item.title}
+                    className="w-16 h-16 object-cover mx-auto rounded"
+                  />
+                </td>
+                <td className="border p-2">{item.createdAt}</td>
+                <td className="border p-2">
+                  <button
+                    className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                    onClick={() => confirmDelete(item._id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+            {organizations.length === 0 && (
+              <tr>
+                <td colSpan={4} className="border p-2 text-gray-500">
+                  No organizations available.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      )}
 
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-transparent bg-opacity-50">
-          <div className="bg-white p-6 rounded shadow-lg w-96">
-            <h2 className="text-lg font-bold mb-4">Confirm Delete</h2>
-            <p>Are you sure you want to delete this Organization?</p>
-            <div className="flex justify-end mt-4">
-              <button
-                className="px-4 py-2 bg-gray-400 text-white rounded mr-2"
-                onClick={() => setShowDeleteModal(false)}
-              >
-                Cancel
-              </button>
-              <button
-                className="px-4 py-2 bg-red-500 text-white rounded"
-                onClick={handleDelete}
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
+        <DeleteModal
+          onClose={() => setShowDeleteModal(false)}
+          onConfirm={handleDelete}
+          type={"Organization"}
+        />
       )}
 
       {showModal && (

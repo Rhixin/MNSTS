@@ -72,15 +72,30 @@ export default function News() {
     show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
-  if (!newsData.length && !loading) return (
-    <div className="bg-white p-6 rounded-xl text-center">
-      <svg className="w-16 h-16 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M12 21a9 9 0 110-18 9 9 0 010 18z" />
-      </svg>
-      <h3 className="mt-4 text-lg font-medium text-gray-900">No news available</h3>
-      <p className="mt-2 text-sm text-gray-500">We couldn't find any news articles at this time.</p>
-    </div>
-  );
+  if (!newsData.length && !loading)
+    return (
+      <div className="bg-white p-6 rounded-xl text-center">
+        <svg
+          className="w-16 h-16 mx-auto text-gray-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M12 21a9 9 0 110-18 9 9 0 010 18z"
+          />
+        </svg>
+        <h3 className="mt-4 text-lg font-medium text-gray-900">
+          No news available
+        </h3>
+        <p className="mt-2 text-sm text-gray-500">
+          We couldn't find any news articles at this time.
+        </p>
+      </div>
+    );
 
   return (
     <div className="bg-white flex w-full max-h-[650px] rounded-xl">
@@ -114,9 +129,9 @@ export default function News() {
       {/* News List */}
       <div className="relative flex-1 overflow-y-auto">
         {loading ? (
-          Array(5).fill().map((_, index) => (
-            <SkeletonPreview key={index} />
-          ))
+          Array(5)
+            .fill()
+            .map((_, index) => <SkeletonPreview key={index} />)
         ) : (
           <motion.div variants={listVariants} initial="hidden" animate="show">
             {newsData.map((news) => (
