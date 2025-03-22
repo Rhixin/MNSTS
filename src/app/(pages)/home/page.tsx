@@ -1,8 +1,10 @@
 "use client";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
+  const router = useRouter();
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const changingWords = ["Innovation", "Excellence", "Leadership", "Discovery", "Technology"];
   
@@ -14,10 +16,12 @@ const Page = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const handleLearnMore = () => {
+    router.push("/about");
+  };
+
   return (
-    <div className="fixed inset-0 w-full h-full flex items-center justify-center overflow-hidden">
-      
-      
+    <div className="flex items-center justify-center min-h-screen w-full">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -71,19 +75,12 @@ const Page = () => {
             className="py-4 px-8 rounded-xl bg-[#097444] text-white hover:bg-[#0b854f] transition-colors duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={handleLearnMore}
           >
             Learn More
           </motion.button>
         </motion.div>
       </motion.div>
-      
-      <style jsx global>{`
-        body {
-          margin: 0;
-          padding: 0;
-          overflow: hidden;
-        }
-      `}</style>
     </div>
   );
 };
