@@ -6,7 +6,7 @@ import AnnouncementsDashboard from "@/components/AnnouncementsDashboard";
 import OrganizationsDashboard from "@/components/OrganizationsDashboard";
 import AchievementsDashboard from "@/components/AchievementsDashboard";
 import EventsDashboard from "@/components/EventsDashboard";
-
+import InquiriesDashboard from "@/components/InquiriesDashboard";
 export default function Dashboard() {
   const [selectedSection, setSelectedSection] = useState("News");
   const [isLoading, setIsLoading] = useState(true);
@@ -18,6 +18,7 @@ export default function Dashboard() {
     "Organizations",
     "Achievements",
     "Events",
+    "Inquiries",
   ];
 
   useEffect(() => {
@@ -147,6 +148,8 @@ export default function Dashboard() {
             <AchievementsDashboard />
           ) : selectedSection === "Events" ? (
             <EventsDashboard />
+          ) : selectedSection === "Inquiries" ? (
+            <InquiriesDashboard />
           ) : (
             <p className="text-gray-600 mt-2">
               Content for {selectedSection}...
