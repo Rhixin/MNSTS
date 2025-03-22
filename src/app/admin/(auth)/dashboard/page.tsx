@@ -90,8 +90,8 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="py-8 min-h-screen flex justify-center items-center">
-      <div className="flex min-h-[90vh] bg-gray-100 rounded-2xl">
+    <div className="py-8 min-h-screen flex justify-center items-center ">
+      <div className="flex min-h-[90vh] bg-gray-100 rounded-2xl w-full">
         {/* Left Sidebar Menu */}
         <div className="w-64 bg-white shadow-lg p-4 rounded-l-2xl flex flex-col">
           <h2 className="text-lg font-bold mb-4">Dashboard</h2>
