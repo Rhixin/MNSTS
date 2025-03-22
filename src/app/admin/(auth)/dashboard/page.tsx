@@ -90,7 +90,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="flex max-h-[780px] min-h-[780px] bg-gray-100 rounded-2xl mt-6">
+    <div className="flex min-h-screen bg-gray-100 rounded-2xl">
       {/* Left Sidebar Menu */}
       <div className="w-64 bg-white shadow-lg p-4 rounded-l-2xl flex flex-col">
         <h2 className="text-lg font-bold mb-4">Dashboard</h2>
