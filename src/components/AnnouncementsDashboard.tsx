@@ -147,7 +147,7 @@ export default function AnnouncementsDashboard() {
       )}
 
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-transparent bg-opacity-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-transparent bg-opacity-50 backdrop-blur-sm">
           <div className="bg-white p-6 rounded shadow-lg w-96">
             <h2 className="text-lg font-bold mb-4">Add Announcement</h2>
             <textarea

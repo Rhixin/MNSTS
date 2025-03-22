@@ -14,7 +14,7 @@ export default function HighlightNews({
   return (
     <div className="flex flex-col h-full">
       {/* Image Container */}
-      <div className="relative w-full h-[400px] flex justify-center items-center overflow-hidden rounded-lg backdrop-blur-3xl">
+      <div className="relative w-full h-[300px] flex justify-center items-center overflow-hidden rounded-lg backdrop-blur-3xl">
         {/* Blurred Background */}
         <img
           src={image_path}
@@ -32,7 +32,12 @@ export default function HighlightNews({
       </div>
 
       {/* Title */}
-      <h2 className="text-3xl font-bold mt-6 mb-2 text-gray-800 leading-tight">
+      <h2
+        className="font-bold mt-6 mb-2 text-gray-800 leading-tight text-wrap balance"
+        style={{
+          fontSize: `clamp(1.5rem, ${30 - title.length * 0.3}px, 3rem)`,
+        }}
+      >
         {title}
       </h2>
 
@@ -46,7 +51,7 @@ export default function HighlightNews({
       </div>
 
       {/* Description with Scrollable Overflow */}
-      <div className="text-base text-gray-700 leading-relaxed max-h-[100px] overflow-y-auto pr-2 text-justify">
+      <div className="text-base text-gray-700 leading-relaxed max-h-[220px] overflow-y-auto pr-2 text-justify">
         {description}
       </div>
     </div>
