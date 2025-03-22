@@ -48,7 +48,7 @@ export default function Home() {
     { symbol: "💻", delay: 2 },
   ];
   return (
-    <div className="bg-gradient-to-b from-white to-gray-100 min-h-screen rounded-4xl">
+    <div className="bg-gradient-to-b from-white to-gray-100 min-h-screen rounded-4xl mb-12">
       <motion.div
         className="max-w-6xl mx-auto min-h-[580px] w-full p-8 rounded-xl overflow-hidden"
         initial={{ opacity: 0 }}
@@ -133,7 +133,7 @@ export default function Home() {
         </div>
 
         {/* Programs Section */}
-        <div className="py-8">
+        <div className="py-8 mt-24">
           <motion.h2
             className="text-3xl font-bold text-center mb-12"
             initial={{ opacity: 0 }}

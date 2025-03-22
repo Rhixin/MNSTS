@@ -39,10 +39,10 @@ export default function Navbar() {
     };
 
     window.addEventListener("scroll", handleScroll);
-    
+
     // Initial check in case page is loaded at a scrolled position
     handleScroll();
-    
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -59,10 +59,12 @@ export default function Navbar() {
   };
 
   return (
-    <div className={`sticky top-0 w-full z-10 transition-all duration-300 ${
-      isScrolled ? "bg-white/70 backdrop-blur-md shadow-md" : "bg-transparent"
-    }`}>
-      <div className="py-2 px-4 md:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
+    <div
+      className={`sticky top-0 w-full z-10 transition-all duration-300 ${
+        isScrolled ? "opacity-0 invisible" : "opacity-100 visible"
+      }`}
+    >
+      <div className="py-2 flex flex-col md:flex-row items-center justify-between">
         {/* Logo and Title */}
         <div className="flex items-center w-full justify-between md:justify-start">
           <div className="flex items-center">
@@ -71,9 +73,11 @@ export default function Navbar() {
               className="w-12 h-12 md:w-14 md:h-14 rounded-full border-2 border-white shadow-md"
               alt="MNSTS Logo"
             />
-            <h1 className={`text-xl sm:text-xl md:text-2xl ml-2 md:ml-4 font-bold transition-colors duration-300 ${
-              isScrolled ? "text-[#0a4d2e]" : "text-white"
-            }`}>
+            <h1
+              className={`text-xl sm:text-xl md:text-2xl ml-2 md:ml-4 font-bold transition-colors duration-300 ${
+                isScrolled ? "text-[#0a4d2e]" : "text-white"
+              }`}
+            >
               <span className="hidden sm:inline">
                 Medellin National Science and Technology School
               </span>
@@ -82,9 +86,12 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Menu Button */}
-          <button className={`md:hidden transition-colors duration-300 ${
-            isScrolled ? "text-[#0a4d2e]" : "text-white"
-          }`} onClick={toggleMenu}>
+          <button
+            className={`md:hidden transition-colors duration-300 ${
+              isScrolled ? "text-[#0a4d2e]" : "text-white"
+            }`}
+            onClick={toggleMenu}
+          >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
@@ -103,9 +110,11 @@ export default function Navbar() {
       </div>
 
       {/* Desktop Navigation */}
-      <div className={`hidden md:block rounded-full relative w-full shadow-inner transition-colors duration-300 ${
-        isScrolled ? "bg-white/80" : "bg-white"
-      }`}>
+      <div
+        className={`hidden md:block rounded-full relative w-full shadow-inner transition-colors duration-300 ${
+          isScrolled ? "bg-white/80" : "bg-white"
+        }`}
+      >
         <ul className="flex w-full justify-between relative">
           {/* Moving Background Indicator */}
           <div
