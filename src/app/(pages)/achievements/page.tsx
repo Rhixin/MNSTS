@@ -126,12 +126,9 @@ export default function Achievements() {
 
   if (error) {
     return (
-      <div className="bg-white flex w-full min-h-[650px] rounded-xl p-4 flex-col items-center justify-center">
-        <div className="text-red-500 text-xl mb-4">⚠️ {error}</div>
-        <button
       <div className="bg-white flex w-full min-h-[300px] sm:min-h-[450px] md:min-h-[550px] lg:min-h-[650px] rounded-xl p-4 flex-col items-center justify-center">
         <div className="text-red-500 text-lg sm:text-xl mb-4">⚠️ {error}</div>
-        <button 
+        <button
           onClick={fetchData}
           className="px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-b from-[rgb(9,116,68)] to-[rgb(14,175,103)] text-white rounded-md shadow-md transition hover:opacity-90"
         >
@@ -142,20 +139,18 @@ export default function Achievements() {
   }
 
   return (
-    <div className="bg-white flex w-full min-h-[650px] rounded-xl p-4 flex-col shadow-lg">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-        <div className="relative inline-block text-left">
     <div className="bg-white flex w-full min-h-[300px] sm:min-h-[450px] md:min-h-[550px] lg:min-h-[650px] rounded-xl p-3 sm:p-4 flex-col shadow-lg">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6">
-        
         <div className="relative inline-block text-left dropdown-container mb-4 sm:mb-0">
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="w-full sm:w-auto px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-b from-[rgb(9,116,68)] to-[rgb(14,175,103)] text-white rounded-md shadow-md transition hover:opacity-90 flex items-center justify-between"
           >
-            <span>{selectedOption || "Select Category"}</span>
+            <span className="truncate max-w-[200px]">
+              {selectedOption || "Select Category"}
+            </span>
             <svg
-              className="w-4 h-4 ml-2"
+              className="w-4 h-4 ml-2 flex-shrink-0"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -166,9 +161,6 @@ export default function Achievements() {
                 strokeWidth="2"
                 d={isOpen ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"}
               />
-            <span className="truncate max-w-[200px]">{selectedOption || "Select Category"}</span>
-            <svg className="w-4 h-4 ml-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isOpen ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"} />
             </svg>
           </button>
 
@@ -185,10 +177,6 @@ export default function Achievements() {
                         : ""
                     }`}
                   >
-                    {option.category}
-                    <span className="ml-2 text-sm text-gray-500">
-                      ({option.achievements.length})
-                    </span>
                     <div className="flex justify-between items-center">
                       <span className="truncate">{option.category}</span>
                       <span className="ml-2 text-sm text-gray-500">
@@ -243,12 +231,9 @@ export default function Achievements() {
             {currentAchievements.map((_, i) => (
               <button
                 key={i}
-                className={`h-2.5 w-2.5 mx-1.5 rounded-full transition-all duration-300 ${
+                className={`h-2 w-2 sm:h-2.5 sm:w-2.5 mx-1 sm:mx-1.5 rounded-full transition-all duration-300 ${
                   index === i
                     ? "bg-[rgb(14,175,103)] scale-110"
-                className={`h-2 w-2 sm:h-2.5 sm:w-2.5 mx-1 sm:mx-1.5 rounded-full transition-all duration-300 ${
-                  index === i 
-                    ? "bg-[rgb(14,175,103)] scale-110" 
                     : "bg-gray-300 hover:bg-gray-400"
                 }`}
                 onClick={() => setIndex(i)}
@@ -263,16 +248,14 @@ export default function Achievements() {
           </div>
         </>
       ) : (
-        <div className="flex flex-col items-center justify-center flex-grow py-12">
-          <div className="text-6xl mb-4">🏆</div>
-          <p className="text-xl text-gray-600 mb-2">
-            No achievements found in this category
-          </p>
-          <p className="text-gray-500">Try selecting a different category</p>
         <div className="flex flex-col items-center justify-center flex-grow py-6 sm:py-12">
           <div className="text-4xl sm:text-6xl mb-4">🏆</div>
-          <p className="text-lg sm:text-xl text-gray-600 mb-2 text-center">No achievements found in this category</p>
-          <p className="text-gray-500 text-center">Try selecting a different category</p>
+          <p className="text-lg sm:text-xl text-gray-600 mb-2 text-center">
+            No achievements found in this category
+          </p>
+          <p className="text-gray-500 text-center">
+            Try selecting a different category
+          </p>
         </div>
       )}
     </div>
