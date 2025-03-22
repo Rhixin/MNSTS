@@ -64,7 +64,7 @@ export default function Navbar() {
         </div>
 
         {/* Search Bar - Hidden on small screens, visible on medium and up */}
-        <div className="relative mt-4 md:mt-0 hidden md:block">
+        {/* <div className="relative mt-4 md:mt-0 hidden md:block">
           <input
             type="text"
             placeholder="Search..."
@@ -73,7 +73,7 @@ export default function Navbar() {
           <button className="absolute right-3 top-1/2 transform -translate-y-1/2">
             <Search size={18} className="text-[#0a4d2e]" />
           </button>
-        </div>
+        </div> */}
       </div>
 
       {/* Desktop Navigation */}
