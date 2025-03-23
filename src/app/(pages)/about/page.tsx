@@ -75,29 +75,11 @@ export default function About() {
                 </h3>
                 <div className="flex flex-col md:flex-row justify-between gap-4 border-b border-gray-200 pb-8">
                   <div className="flex-1">
-                    <h4 className="text-lg font-semibold text-center mb-4">
-                      JUNIOR HIGH SCHOOL FEMALE UNIFORM
-                    </h4>
                     <div className="flex justify-center">
                       <img
                         src="images/senior_design.png"
                         className="object-contain max-w-full h-auto"
                         alt="Junior High School Female Uniform"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="hidden md:block w-px bg-gray-300 mx-4"></div>
-
-                  <div className="flex-1">
-                    <h4 className="text-lg font-semibold text-center mb-4">
-                      JUNIOR HIGH SCHOOL MALE UNIFORM
-                    </h4>
-                    <div className="flex justify-center">
-                      <img
-                        src="images/junior_design.png"
-                        className="object-contain max-w-full h-auto"
-                        alt="Junior High School Male Uniform"
                       />
                     </div>
                   </div>
@@ -111,29 +93,11 @@ export default function About() {
                 </h3>
                 <div className="flex flex-col md:flex-row justify-between gap-4">
                   <div className="flex-1">
-                    <h4 className="text-lg font-semibold text-center mb-4">
-                      SENIOR HIGH SCHOOL FEMALE UNIFORM
-                    </h4>
                     <div className="flex justify-center">
                       <img
                         src="images/junior_design.png"
                         className="object-contain max-w-full h-auto"
                         alt="Senior High School Female Uniform"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="hidden md:block w-px bg-gray-300 mx-4"></div>
-
-                  <div className="flex-1">
-                    <h4 className="text-lg font-semibold text-center mb-4">
-                      SENIOR HIGH SCHOOL MALE UNIFORM
-                    </h4>
-                    <div className="flex justify-center">
-                      <img
-                        src="images/senior_design.png"
-                        className="object-contain max-w-full h-auto"
-                        alt="Senior High School Male Uniform"
                       />
                     </div>
                   </div>
