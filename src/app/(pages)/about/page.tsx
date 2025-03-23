@@ -80,7 +80,7 @@ export default function About() {
                     </h4>
                     <div className="flex justify-center">
                       <img
-                        src="images/junior_design.png"
+                        src="images/senior_design.png"
                         className="object-contain max-w-full h-auto"
                         alt="Junior High School Female Uniform"
                       />
@@ -116,7 +116,7 @@ export default function About() {
                     </h4>
                     <div className="flex justify-center">
                       <img
-                        src="images/senior_design.png"
+                        src="images/junior_design.png"
                         className="object-contain max-w-full h-auto"
                         alt="Senior High School Female Uniform"
                       />

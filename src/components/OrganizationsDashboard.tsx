@@ -333,7 +333,7 @@ export default function OrganizationsDashboard() {
                 </label>
                 <input
                   type="text"
-                  placeholder="Enter news title"
+                  placeholder="Enter Organization title"
                   className="w-full p-2 border rounded focus:ring-2 focus:ring-[#0a4d2e] focus:border-[#0a4d2e] outline-none"
                   value={newOrganization.clubName}
                   onChange={(e) =>
@@ -351,7 +351,7 @@ export default function OrganizationsDashboard() {
                   Description
                 </label>
                 <textarea
-                  placeholder="Enter news content"
+                  placeholder="Enter Organization Description"
                   className="w-full p-2 border rounded focus:ring-2 focus:ring-[#0a4d2e] focus:border-[#0a4d2e] outline-none"
                   rows="4"
                   value={newOrganization.description}
@@ -371,7 +371,7 @@ export default function OrganizationsDashboard() {
                 </label>
                 <input
                   type="text"
-                  placeholder="Enter author name"
+                  placeholder="Enter President Name"
                   className="w-full p-2 border rounded focus:ring-2 focus:ring-[#0a4d2e] focus:border-[#0a4d2e] outline-none"
                   value={newOrganization.president}
                   onChange={(e) =>
@@ -390,7 +390,7 @@ export default function OrganizationsDashboard() {
                 </label>
                 <input
                   type="text"
-                  placeholder="Enter author name"
+                  placeholder="Enter Adviser Name"
                   className="w-full p-2 border rounded focus:ring-2 focus:ring-[#0a4d2e] focus:border-[#0a4d2e] outline-none"
                   value={newOrganization.adviser}
                   onChange={(e) =>
@@ -408,7 +408,7 @@ export default function OrganizationsDashboard() {
                   Activities
                 </label>
                 <textarea
-                  placeholder="Enter news content"
+                  placeholder="Enter Activities"
                   className="w-full p-2 border rounded focus:ring-2 focus:ring-[#0a4d2e] focus:border-[#0a4d2e] outline-none"
                   rows="2"
                   value={newOrganization.activities}
@@ -427,7 +427,7 @@ export default function OrganizationsDashboard() {
                   Projects
                 </label>
                 <textarea
-                  placeholder="Enter news content"
+                  placeholder="Enter Projects"
                   className="w-full p-2 border rounded focus:ring-2 focus:ring-[#0a4d2e] focus:border-[#0a4d2e] outline-none"
                   rows="2"
                   value={newOrganization.projects}
