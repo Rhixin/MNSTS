@@ -31,12 +31,15 @@ export default function Achievement({
       <div className="w-full md:w-1/2 flex flex-col p-4 md:p-6">
         {/* Headline */}
         <div className="mb-4">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl text-black font-bold">{title}</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl text-black font-bold">
+            {title}
+          </h1>
         </div>
 
-        {/* Description */}
         <div>
-          <p className="text-sm sm:text-base md:text-lg">{description}</p>
+          <p className="text-sm sm:text-base md:text-lg whitespace-pre-line text-justify">
+            {description}
+          </p>
         </div>
       </div>
     </div>
