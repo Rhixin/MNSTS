@@ -109,7 +109,7 @@ export default function AchievementsDashboard() {
   }
 
   const handleAddAchievement = async () => {
-    if (!newTitle || !newCategory || !newCategory || !newImage) {
+    if (!newTitle || !newCategory || !newDescription || !newImage) {
       alert("All fields are required!");
       return;
     }
@@ -125,6 +125,10 @@ export default function AchievementsDashboard() {
       setSubmitting(false);
       return;
     }
+
+    console.log(
+      newCategory + " " + newTitle + " " + newDescription + " " + imageUrl
+    );
 
     try {
       const res = await fetch("/api/achievements/add", {

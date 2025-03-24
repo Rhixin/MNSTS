@@ -13,6 +13,7 @@ export default function NewsDashboard() {
   const [selectedNewsId, setSelectedNewsId] = useState(null);
   const [newTitle, setNewTitle] = useState("");
   const [newAuthor, setNewAuthor] = useState("");
+  const [createdAt, setCreatedAt] = useState(null);
   const [newContent, setNewContent] = useState("");
   const [newImage, setNewImage] = useState(null);
   const [imageUploading, setImageUploading] = useState(false);
@@ -176,6 +177,7 @@ export default function NewsDashboard() {
           author: newAuthor,
           content: newContent,
           images: [imageUrl],
+          createdAt: createdAt,
         }),
       });
 
@@ -350,6 +352,19 @@ export default function NewsDashboard() {
                   onChange={(e) => setNewContent(e.target.value)}
                   disabled={submitting}
                 ></textarea>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Date & Time
+                </label>
+                <input
+                  type="datetime-local"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-[#0a4d2e] focus:border-[#0a4d2e] outline-none"
+                  value={createdAt}
+                  onChange={(e) => setCreatedAt(e.target.value)}
+                  disabled={submitting}
+                />
               </div>
 
               <div>

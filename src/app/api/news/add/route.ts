@@ -54,6 +54,7 @@ export async function POST(request: NextRequest) {
       images: Array.isArray(body.images) ? body.images : [],
       author: body.author,
       content: body.content,
+      createdAt: body.createdAt,
     });
 
     // Save the news document to the database
