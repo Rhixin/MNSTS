@@ -45,48 +45,54 @@ const Contact =
 export async function GET(request) {
   try {
     await connectDB();
-    
+
     // Parse query parameters
     const { searchParams } = new URL(request.url);
-    const limit = parseInt(searchParams.get('limit') || '100');
-    const page = parseInt(searchParams.get('page') || '1');
+    const limit = parseInt(searchParams.get("limit") || "100");
+    const page = parseInt(searchParams.get("page") || "1");
     const skip = (page - 1) * limit;
-    const sort = searchParams.get('sort') || '-createdAt'; // Default to newest first
-    const isDone = searchParams.get('is_done'); // Optional filter by is_done status
-    
+    const sort = searchParams.get("sort") || "-createdAt"; // Default to newest first
+    const isDone = searchParams.get("is_done"); // Optional filter by is_done status
+
     // Build query
     const query = {};
     if (isDone !== null && isDone !== undefined) {
       // Convert string to boolean
-      query.is_done = isDone === 'true';
+      query.is_done = isDone === "true";
     }
-    
+
     // Count total documents for pagination
     const total = await Contact.countDocuments(query);
-    
+
     // Fetch contacts with pagination
     const contacts = await Contact.find(query)
       .sort(sort)
       .skip(skip)
       .limit(limit)
       .lean();
-    
-    return NextResponse.json({
-      success: true,
-      data: contacts,
-      pagination: {
-        total,
-        page,
-        limit,
-        pages: Math.ceil(total / limit)
-      }
-    }, { status: 200 });
+
+    return NextResponse.json(
+      {
+        success: true,
+        data: contacts,
+        pagination: {
+          total,
+          page,
+          limit,
+          pages: Math.ceil(total / limit),
+        },
+      },
+      { status: 200 }
+    );
   } catch (error) {
-    console.error('Error fetching contacts:', error);
-    return NextResponse.json({
-      success: false,
-      message: error.message || 'Failed to fetch contacts'
-    }, { status: 500 });
+    console.error("Error fetching contacts:", error);
+    return NextResponse.json(
+      {
+        success: false,
+        message: error.message || "Failed to fetch contacts",
+      },
+      { status: 500 }
+    );
   }
 }
 
@@ -141,47 +147,62 @@ export async function POST(request) {
 export async function DELETE(request) {
   try {
     await connectDB();
-    
+
     // Parse the URL to get the ID parameter
     const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id');
-    
+    const id = searchParams.get("id");
+
     if (!id) {
-      return NextResponse.json({
-        success: false,
-        message: 'Contact ID is required'
-      }, { status: 400 });
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Contact ID is required",
+        },
+        { status: 400 }
+      );
     }
-    
+
     // Check if ID is valid MongoDB ObjectId
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      return NextResponse.json({
-        success: false,
-        message: 'Invalid contact ID format'
-      }, { status: 400 });
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Invalid contact ID format",
+        },
+        { status: 400 }
+      );
     }
-    
+
     // Find and delete the contact
     const deletedContact = await Contact.findByIdAndDelete(id);
-    
+
     if (!deletedContact) {
-      return NextResponse.json({
-        success: false,
-        message: 'Contact not found'
-      }, { status: 404 });
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Contact not found",
+        },
+        { status: 404 }
+      );
     }
-    
-    return NextResponse.json({
-      success: true,
-      message: 'Contact deleted successfully',
-      data: deletedContact
-    }, { status: 200 });
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Contact deleted successfully",
+        data: deletedContact,
+      },
+      { status: 200 }
+    );
   } catch (error) {
-    console.error('Error deleting contact:', error);
-    return NextResponse.json({
-      success: false,
-      message: error.message || 'Failed to delete contact'
-    }, { status: 500 });
+    console.error("Error deleting contact:", error);
+    return NextResponse.json(
+      {
+        success: false,
+        message: error.message || "Failed to delete contact",
+      },
+      { status: 500 }
+    );
   }
 }
 
@@ -189,53 +210,68 @@ export async function DELETE(request) {
 export async function PATCH(request) {
   try {
     await connectDB();
-    
+
     // Parse the URL to get the ID parameter
     const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id');
-    
+    const id = searchParams.get("id");
+
     if (!id) {
-      return NextResponse.json({
-        success: false,
-        message: 'Contact ID is required'
-      }, { status: 400 });
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Contact ID is required",
+        },
+        { status: 400 }
+      );
     }
-    
+
     // Check if ID is valid MongoDB ObjectId
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      return NextResponse.json({
-        success: false,
-        message: 'Invalid contact ID format'
-      }, { status: 400 });
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Invalid contact ID format",
+        },
+        { status: 400 }
+      );
     }
-    
+
     // Parse the request body
     const data = await request.json();
-    
+
     // Find and update the contact
     const updatedContact = await Contact.findByIdAndUpdate(
       id,
       { $set: { is_done: data.is_done } },
       { new: true, runValidators: true }
     );
-    
+
     if (!updatedContact) {
-      return NextResponse.json({
-        success: false,
-        message: 'Contact not found'
-      }, { status: 404 });
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Contact not found",
+        },
+        { status: 404 }
+      );
     }
-    
-    return NextResponse.json({
-      success: true,
-      message: 'Contact updated successfully',
-      data: updatedContact
-    }, { status: 200 });
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Contact updated successfully",
+        data: updatedContact,
+      },
+      { status: 200 }
+    );
   } catch (error) {
-    console.error('Error updating contact:', error);
-    return NextResponse.json({
-      success: false,
-      message: error.message || 'Failed to update contact'
-    }, { status: 500 });
+    console.error("Error updating contact:", error);
+    return NextResponse.json(
+      {
+        success: false,
+        message: error.message || "Failed to update contact",
+      },
+      { status: 500 }
+    );
   }
 }

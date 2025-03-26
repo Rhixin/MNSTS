@@ -1,26 +1,24 @@
-// app/api/subscribers/add/route.ts
+// app/api/announcements/add/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
 import mongoose from "mongoose";
 
-// Define the subscribers schema and model
-const subscriberSchema = new mongoose.Schema({
-  email: {
+// Define the announcements schema and model
+const announcementSchema = new mongoose.Schema({
+  content: {
     type: String,
-    required: [true, "Email is required"],
-    unique: true,
-    match: [/.+@.+\..+/, "Please enter a valid email address"],
+    required: [true, "Content is required"],
   },
-  subscribedAt: {
+  createdAt: {
     type: Date,
     default: Date.now,
   },
 });
 
-// Get the subscribers model (create it if it doesn't exist)
-const Subscribers =
-  mongoose.models.Subscribers ||
-  mongoose.model("Subscribers", subscriberSchema);
+// Get the announcements model (create it if it doesn't exist)
+const Announcements =
+  mongoose.models.Announcements ||
+  mongoose.model("Announcements", announcementSchema);
 
 export async function POST(request: NextRequest) {
   try {
@@ -31,25 +29,28 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
 
     // Validate required fields
-    if (!body.email) {
-      return NextResponse.json({ error: "Email is required" }, { status: 400 });
+    if (!body.content) {
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 }
+      );
     }
 
-    // Create a new subscriber document
-    const newSubscriber = new Subscribers({
-      email: body.email,
+    // Create a new announcements document
+    const newAnnouncement = new Announcements({
+      content: body.content,
     });
 
-    // Save the subscriber document to the database
-    const savedSubscriber = await newSubscriber.save();
+    // Save the announcements document to the database
+    const savedAnnouncements = await newAnnouncement.save();
 
-    // Return the saved subscriber document
+    // Return the saved announcements document
     return NextResponse.json(
-      { success: true, data: savedSubscriber },
+      { success: true, data: savedAnnouncements },
       { status: 201 }
     );
   } catch (error) {
-    console.error("Error adding subscriber:", error);
+    console.error("Error adding announcemenets:", error);
 
     // Handle validation errors
     if (error instanceof mongoose.Error.ValidationError) {
@@ -62,17 +63,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Handle duplicate email error
-    if (error.code === 11000) {
-      return NextResponse.json(
-        { error: "This email is already subscribed" },
-        { status: 400 }
-      );
-    }
-
     // Handle other errors
     return NextResponse.json(
-      { error: "Failed to add subscriber" },
+      { error: "Failed to add announcement" },
       { status: 500 }
     );
   }

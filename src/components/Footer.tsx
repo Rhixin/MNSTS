@@ -119,6 +119,13 @@ const Footer = () => {
           </div>
         </div>
 
+        <div className="mt-8 pt-6 border-t border-gray-300 text-center text-gray-500 text-lg">
+          <p>Contact Us</p>
+          <p>NMES East, Poblacion, Medellin, Cebu, Philippines, 6012</p>
+          <p>(032) 231 5381</p>
+          <p>medellinscihi@gmail.com</p>
+        </div>
+
         <div className="mt-8 pt-6 border-t border-gray-300 text-center text-gray-500 text-sm">
           &copy; {new Date().getFullYear()} MNSTS. All rights reserved.
         </div>

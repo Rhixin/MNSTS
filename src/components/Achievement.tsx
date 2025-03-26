@@ -8,9 +8,9 @@ export default function Achievement({
   image_path: string;
 }) {
   return (
-    <div className="flex flex-col md:flex-row w-full">
+    <div className="flex flex-col w-full">
       {/* Image Section - Full width on mobile, half width on medium screens and up */}
-      <div className="w-full md:w-1/2 flex items-center justify-center p-4">
+      <div className="w-full  flex items-center justify-center p-4">
         <div className="relative w-full max-w-md h-64 sm:h-80 md:h-96 flex justify-center items-center overflow-hidden rounded-lg">
           {/* Blurred Background Image */}
           <div
@@ -28,7 +28,7 @@ export default function Achievement({
       </div>
 
       {/* Content Section - Full width on mobile, half width on medium screens and up */}
-      <div className="w-full md:w-1/2 flex flex-col p-4 md:p-6">
+      <div className="w-full flex flex-col p-4 md:p-6">
         {/* Headline */}
         <div className="mb-4">
           <h1 className="text-2xl sm:text-3xl md:text-4xl text-black font-bold">
