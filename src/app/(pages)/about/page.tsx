@@ -42,8 +42,9 @@ export default function About() {
             transition={{ duration: 0.5 }}
             className="bg-white px-6 sm:px-8 md:px-12 py-6 md:py-8 rounded-3xl md:rounded-4xl shadow-xl w-full sm:w-[90%] md:w-[80%] lg:w-[60%] flex flex-col md:flex-row justify-evenly items-center gap-8 md:gap-4"
           >
-            <Counter end={18} label="Faculty Members" />
-            <Counter end={400} label="Students" />
+            <Counter end={17} label="Teachers" />
+            <Counter end={3} label="Non-Teaching" />
+            <Counter end={408} label="Students" />
           </motion.div>
         </div>
       </section>

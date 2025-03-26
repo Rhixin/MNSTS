@@ -23,10 +23,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={figtree.variable}>
-      <body className={`${figtree.className} min-h-screen max-w-screen space-y-8 flex flex-col`}>
+      <body
+        className={`${figtree.className} min-h-screen max-w-screen space-y-8 flex flex-col`}
+      >
         <div className="container mx-auto flex-1 flex-col">{children}</div>
-        {/* <Footer /> */}
       </body>
+
+      <Footer />
     </html>
   );
 }
