@@ -111,13 +111,6 @@ async function sendEmailReceipt(transporter, subscriber, newsItem) {
         </p>
         <p>Regards,<br>Your MNSTS Newsletter Team</p>
       </div>`,
-      attachments: [
-        {
-          filename: "MNSTS_logo.jpg",
-          path: "https://mnsts.vercel.app/images/MNSTS_logo.jpg", // Path to the logo file on your server
-          cid: "mnsts-logo", // Same as the image src in the HTML
-        },
-      ],
     });
 
     console.log(`Email sent successfully to ${recipientEmail}`);
