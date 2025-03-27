@@ -181,7 +181,7 @@ export default function About() {
       {/* CORE VALUES */}
       <section className="min-h-[400px] md:min-h-[550px] lg:min-h-[650px] w-full my-16 md:my-24 lg:my-32 flex items-center justify-center flex-col py-8 md:py-16">
         <h2 className="text-3xl md:text-4xl lg:text-5xl mb-6 font-bold text-amber-100 text-center px-4">
-          OUR COURE VALUES
+          OUR CORE VALUES
         </h2>
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
