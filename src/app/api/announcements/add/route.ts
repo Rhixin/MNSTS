@@ -89,7 +89,7 @@ async function sendEmailReceipt(transporter, subscriber, announcement) {
       attachments: [
         {
           filename: "MNSTS_logo.jpg",
-          path: "./public/images/MNSTS_logo.jpg", // Path to the logo file on your server
+          path: "https://mnsts.vercel.app/images/MNSTS_logo.jpg", // Path to the logo file on your server
           cid: "mnsts-logo", // Same as the image src in the HTML
         },
       ],
