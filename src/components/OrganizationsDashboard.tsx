@@ -17,10 +17,9 @@ export default function OrganizationsDashboard() {
   const [newOrganization, setNewOrganization] = useState({
     clubName: "",
     description: "",
-    president: "",
+    officers: "",
     adviser: "",
     activities: "",
-    projects: "",
     image_path: "",
     logo_path: "",
   });
@@ -120,10 +119,9 @@ export default function OrganizationsDashboard() {
       setNewOrganization({
         clubName: "",
         description: "",
-        president: "",
+        officers: "",
         adviser: "",
         activities: "",
-        projects: "",
         image_path: "",
         logo_path: "",
       });
@@ -241,10 +239,9 @@ export default function OrganizationsDashboard() {
               <th className="border p-2">Image</th>
               <th className="border p-2">Logo</th>
               <th className="border p-2">Club Name</th>
-              <th className="border p-2">President</th>
+              <th className="border p-2">Officers</th>
               <th className="border p-2">Adviser</th>
               <th className="border p-2">Activities</th>
-              <th className="border p-2">Projects</th>
               <th className="border p-2">Created At</th>
               <th className="border p-2">Actions</th>
             </tr>
@@ -267,11 +264,9 @@ export default function OrganizationsDashboard() {
                   />
                 </td>
                 <td className="border p-2">{item.clubName}</td>
-                <td className="border p-2">{item.president}</td>
+                <td className="border p-2">{item.officers}</td>
                 <td className="border p-2">{item.adviser}</td>
                 <td className="border p-2">{item.activities}</td>
-                <td className="border p-2">{item.projects}</td>
-
                 <td className="border p-2">{item.createdAt}</td>
                 <td className="border p-2">
                   <button
@@ -285,7 +280,7 @@ export default function OrganizationsDashboard() {
             ))}
             {organizations.length === 0 && (
               <tr>
-                <td colSpan={4} className="border p-2 text-gray-500">
+                <td colSpan={7} className="border p-2 text-gray-500">
                   No organizations available.
                 </td>
               </tr>
@@ -367,17 +362,17 @@ export default function OrganizationsDashboard() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  President
+                  Officers
                 </label>
                 <input
                   type="text"
-                  placeholder="Enter President Name"
+                  placeholder="Enter Officers Information"
                   className="w-full p-2 border rounded focus:ring-2 focus:ring-[#0a4d2e] focus:border-[#0a4d2e] outline-none"
-                  value={newOrganization.president}
+                  value={newOrganization.officers}
                   onChange={(e) =>
                     setNewOrganization((prev) => ({
                       ...prev,
-                      president: e.target.value,
+                      officers: e.target.value,
                     }))
                   }
                   disabled={submitting}
@@ -416,25 +411,6 @@ export default function OrganizationsDashboard() {
                     setNewOrganization((prev) => ({
                       ...prev,
                       activities: e.target.value,
-                    }))
-                  }
-                  disabled={submitting}
-                ></textarea>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Projects
-                </label>
-                <textarea
-                  placeholder="Enter Projects"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-[#0a4d2e] focus:border-[#0a4d2e] outline-none"
-                  rows="2"
-                  value={newOrganization.projects}
-                  onChange={(e) =>
-                    setNewOrganization((prev) => ({
-                      ...prev,
-                      projects: e.target.value,
                     }))
                   }
                   disabled={submitting}

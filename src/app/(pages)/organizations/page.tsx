@@ -120,10 +120,9 @@ export default function Organization() {
             <Club
               clubName={clubs[selectedOption]?.clubName}
               description={clubs[selectedOption]?.description}
-              president={clubs[selectedOption]?.president}
+              officers={clubs[selectedOption]?.officers}
               adviser={clubs[selectedOption]?.adviser}
               activities={clubs[selectedOption]?.activities}
-              projects={clubs[selectedOption]?.projects}
               image_path={clubs[selectedOption]?.image_path}
               logo_path={clubs[selectedOption]?.logo_path}
             />

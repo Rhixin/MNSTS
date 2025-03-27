@@ -13,9 +13,9 @@ const organizationSchema = new mongoose.Schema({
     type: String,
     required: [true, "Description is required"],
   },
-  president: {
+  officers: {
     type: String,
-    required: [true, "President is required"],
+    required: [true, "Officers is required"],
     trim: true,
   },
   adviser: {
@@ -26,10 +26,6 @@ const organizationSchema = new mongoose.Schema({
   activities: {
     type: String,
     required: [true, "Activities are required"],
-  },
-  projects: {
-    type: String,
-    required: [true, "Projects are required"],
   },
   image_path: {
     type: String,
@@ -62,10 +58,9 @@ export async function POST(request: NextRequest) {
     if (
       !body.clubName ||
       !body.description ||
-      !body.president ||
+      !body.officers ||
       !body.adviser ||
       !body.activities ||
-      !body.projects ||
       !body.image_path ||
       !body.logo_path
     ) {
@@ -79,10 +74,9 @@ export async function POST(request: NextRequest) {
     const newOrganization = new Organizations({
       clubName: body.clubName,
       description: body.description,
-      president: body.president,
+      officers: body.officers,
       adviser: body.adviser,
       activities: body.activities,
-      projects: body.projects,
       image_path: body.image_path,
       logo_path: body.logo_path,
     });
