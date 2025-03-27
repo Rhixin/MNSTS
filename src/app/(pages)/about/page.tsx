@@ -178,6 +178,24 @@ export default function About() {
           />
         </motion.div>
       </section>
+      {/* CORE VALUES */}
+      <section className="min-h-[400px] md:min-h-[550px] lg:min-h-[650px] w-full my-16 md:my-24 lg:my-32 flex items-center justify-center flex-col py-8 md:py-16">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl mb-6 font-bold text-amber-100 text-center px-4">
+          OUR COURE VALUES
+        </h2>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7 }}
+          className="flex justify-center w-full px-4"
+        >
+          <img
+            src="images/core_values.png"
+            className="object-contain w-full max-w-[750px] h-auto"
+            alt="Core values"
+          />
+        </motion.div>
+      </section>
       ≈
     </div>
   );
