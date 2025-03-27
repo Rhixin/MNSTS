@@ -27,9 +27,9 @@ export default function RootLayout({
         className={`${figtree.className} min-h-screen max-w-screen space-y-8 flex flex-col`}
       >
         <div className="container mx-auto flex-1 flex-col">{children}</div>
-      </body>
 
-      <Footer />
+        <Footer />
+      </body>
     </html>
   );
 }
