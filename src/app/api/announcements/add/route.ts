@@ -71,7 +71,7 @@ async function sendEmailReceipt(transporter, subscriber, announcement) {
       text: `Hello Subscriber,\n\nA new announcement has been posted:\n\n${announcement.content}\n\nView all announcements: https://mnsts.vercel.app/announcements\n\nRegards,\nMNSTS Team`,
       html: `<div>
         <div style="text-align: center; margin-bottom: 20px;">
-          <img src="cid:mnsts-logo" alt="MNSTS Logo" style="max-width: 120px; height: auto; border-radius: 50%; object-fit: cover;">
+          <img src="https://mnsts.vercel.app/images/MNSTS_logo.jpg" alt="MNSTS Logo" style="max-width: 120px; height: auto; border-radius: 50%; object-fit: cover;">
         </div>
         <p>Hello Subscriber,</p>
         <p>A new announcement has been posted:</p>

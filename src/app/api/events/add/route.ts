@@ -94,7 +94,7 @@ async function sendEmailReceipt(transporter, subscriber, event) {
       text: `Hello Subscriber,\n\nA new event has been scheduled:\n\nTitle: ${event.title}\nDate: ${formattedDate}\nTime: ${event.time}\nLocation: ${event.location}\n\nView all events: https://mnsts.vercel.app/events\n\nRegards,\nMNSTS Team`,
       html: `<div>
         <div style="text-align: center; margin-bottom: 20px;">
-          <img src="cid:mnsts-logo" alt="MNSTS Logo" style="max-width: 120px; height: auto; border-radius: 50%; object-fit: cover;">
+          <img src="https://mnsts.vercel.app/images/MNSTS_logo.jpg" alt="MNSTS Logo" style="max-width: 120px; height: auto; border-radius: 50%; object-fit: cover;">
         </div>
         <p>Hello Subscriber,</p>
         <p>A new event has been scheduled:</p>
