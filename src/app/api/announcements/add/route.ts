@@ -192,6 +192,8 @@ export async function POST(request: NextRequest) {
       emailResults = await sendBatchEmails(savedAnnouncement);
     }
 
+    console.log(emailResults);
+
     // Return the saved announcements document and email results
     return NextResponse.json(
       {
