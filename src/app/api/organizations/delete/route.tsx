@@ -27,32 +27,47 @@ export async function DELETE(req: NextRequest) {
       );
     }
 
-    // Assuming you have a Organization model
+    // Use the OrganizationsV2 model instead of Organizations
     const Organizations =
-      mongoose.models.Organizations ||
-      mongoose.model("Organizations", new mongoose.Schema({}));
+      mongoose.models.OrganizationsV2 ||
+      mongoose.model(
+        "OrganizationsV2",
+        new mongoose.Schema({
+          clubName: String,
+          description: String,
+          officers: String,
+          adviser: String,
+          activities: String,
+          image_path: String,
+          logo_path: String,
+          createdAt: {
+            type: Date,
+            default: Date.now,
+          },
+        })
+      );
 
-    // Find and delete the Organizations article
-    const deletedOrganizations = await Organizations.findByIdAndDelete(id);
+    // Find and delete the organization
+    const deletedOrganization = await Organizations.findByIdAndDelete(id);
 
-    // Check if the Organizations was found and deleted
-    if (!deletedOrganizations) {
+    // Check if the organization was found and deleted
+    if (!deletedOrganization) {
       return NextResponse.json(
-        { message: "Organizations article not found" },
+        { message: "Organization not found" },
         { status: 404 }
       );
     }
 
     // Return success response
     return NextResponse.json(
-      { message: "Organizations deleted successfully" },
+      { message: "Organization deleted successfully" },
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error deleting Organizations article:", error);
+    console.error("Error deleting organization:", error);
     return NextResponse.json(
       {
-        message: "Failed to delete Organizations article",
+        message: "Failed to delete organization",
         error: (error as Error).message,
       },
       { status: 500 }

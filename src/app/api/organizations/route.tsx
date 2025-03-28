@@ -15,16 +15,15 @@ export async function GET(req: NextRequest) {
     const skip = (page - 1) * limit;
 
     const Organizations =
-      mongoose.models.Organizations ||
+      mongoose.models.OrganizationsV2 ||
       mongoose.model(
-        "Organizations",
+        "OrganizationsV2",
         new mongoose.Schema({
           clubName: String,
           description: String,
-          president: String,
+          officers: String,  // Changed from "president" to "officers"
           adviser: String,
           activities: String,
-          projects: String,
           image_path: String,
           logo_path: String,
           createdAt: {

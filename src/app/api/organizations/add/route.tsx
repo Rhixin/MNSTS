@@ -16,7 +16,6 @@ const organizationSchema = new mongoose.Schema({
   officers: {
     type: String,
     required: [true, "Officers is required"],
-    trim: true,
   },
   adviser: {
     type: String,
@@ -43,16 +42,19 @@ const organizationSchema = new mongoose.Schema({
 
 // Get the Organization model (create it if it doesn't exist)
 const Organizations =
-  mongoose.models.Organizations ||
-  mongoose.model("Organizations", organizationSchema);
+  mongoose.models.OrganizationsV2 ||
+  mongoose.model("OrganizationsV2", organizationSchema);
 
 export async function POST(request: NextRequest) {
   try {
     // Connect to the database
     await connectDB();
+    console.log("Connected to MongoDB");
 
     // Parse the request body
     const body = await request.json();
+    console.log("Received body:", body);
+    console.log("Officers from request:", body.officers);
 
     // Validate required fields
     if (
@@ -64,6 +66,7 @@ export async function POST(request: NextRequest) {
       !body.image_path ||
       !body.logo_path
     ) {
+      console.log("Missing required fields");
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
@@ -81,8 +84,11 @@ export async function POST(request: NextRequest) {
       logo_path: body.logo_path,
     });
 
+    console.log("Created organization object:", newOrganization);
+
     // Save the organization document to the database
     const savedOrganization = await newOrganization.save();
+    console.log("Saved organization:", savedOrganization);
 
     // Return the saved organization document
     return NextResponse.json(
@@ -97,6 +103,7 @@ export async function POST(request: NextRequest) {
       const validationErrors = Object.values(error.errors).map(
         (err) => err.message
       );
+      console.log("Validation errors:", validationErrors);
       return NextResponse.json(
         { error: "Validation error", details: validationErrors },
         { status: 400 }

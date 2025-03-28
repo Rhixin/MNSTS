@@ -73,49 +73,65 @@ export default function OrganizationsDashboard() {
   };
 
   const handleAddOrganization = async () => {
-    if (!newOrganization.clubName || !newOrganization.description) {
-      alert("Club Name and Description are required!");
+    // Check for required fields including officers
+    if (!newOrganization.clubName || !newOrganization.description || !newOrganization.officers) {
+      alert("Club Name, Description, and Officers are required!");
       return;
     }
-
+    
+    console.log("Form data before submission:", newOrganization);
+    console.log("Officers data specifically:", newOrganization.officers);
+    
+    setSubmitting(true);
+  
     try {
       // First upload the image to Cloudinary
       let imageUrl;
       let logoUrl;
-
+  
       try {
         imageUrl = await uploadImageToCloudinary(newImage);
         logoUrl = await uploadImageToCloudinary(newLogo);
         if (!imageUrl) throw new Error("Failed to upload image");
-        if (!logoUrl) throw new Error("Failed to upload image");
+        if (!logoUrl) throw new Error("Failed to upload logo");
       } catch (err) {
         setError("Error uploading image: " + err.message);
         setSubmitting(false);
         return;
       }
-
-      // Create the updated organization object
-      const updatedOrganization = {
-        ...newOrganization,
+  
+      // Create the request data directly, don't try to update and reuse state
+      const organizationData = {
+        clubName: newOrganization.clubName,
+        description: newOrganization.description,
+        officers: newOrganization.officers, // Make sure this is passed as a string
+        adviser: newOrganization.adviser,
+        activities: newOrganization.activities,
         image_path: imageUrl.toString(),
         logo_path: logoUrl.toString(),
       };
-
-      // Update state
-      setNewOrganization(updatedOrganization);
-
-      // Wait for the next render cycle before making the fetch request
-      await new Promise((resolve) => setTimeout(resolve, 0));
-
-      // Now use the updated object for fetch
+  
+      // Log the data being sent (for debugging)
+      console.log("Sending data to API:", JSON.stringify(organizationData));
+      console.log("Officers field in request:", organizationData.officers);
+      
+      // Make the API request
       const res = await fetch("/api/organizations/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedOrganization),
+        body: JSON.stringify(organizationData),
       });
-
-      if (!res.ok) throw new Error("Failed to add organization");
-
+  
+      if (!res.ok) {
+        const errorData = await res.json();
+        console.error("API error:", errorData);
+        throw new Error(errorData.error || "Failed to add organization");
+      }
+  
+      const responseData = await res.json();
+      console.log("API response:", responseData);
+  
+      // Reset the form
       setNewOrganization({
         clubName: "",
         description: "",
@@ -128,10 +144,12 @@ export default function OrganizationsDashboard() {
       setNewImage(null);
       setLogo(null);
       setShowModal(false);
-
+  
+      // Refresh the organizations list
       fetchOrganizations();
     } catch (err) {
-      alert("Error adding organization");
+      console.error("Error:", err);
+      alert(err.message || "Error adding organization");
     } finally {
       setSubmitting(false);
     }
